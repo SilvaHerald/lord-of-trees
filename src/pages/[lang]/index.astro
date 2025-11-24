@@ -5,12 +5,27 @@ import TravelStoryCard from '@components/blog/TravelStoryCard.astro';
 import TravelSearchBar from '@components/blog/TravelSearchBar.astro';
 import DestinationFilter from '@components/blog/DestinationFilter.astro';
 import TravelStats from '@components/blog/TravelStats.astro';
-import type { Language } from '../libs/i18n/config';
+import { languages, useTranslations, type Language } from '@libs/i18n/config';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+
+  return Object.keys(languages).flatMap(lang => {
+    const langPosts = allPosts.filter(post => post.data.lang === lang);
+
+    return {
+      params: { lang },
+      props: { posts: langPosts },
+    };
+  });
+}
+
+const { lang } = Astro.params;
+const {posts: allPosts} = Astro.props;
+
+const t = useTranslations(lang as Language);
 
 // Get all blog posts and sort by date
-const allPosts = await getCollection('blog', ({data}) =>
-  data.lang === 'en'
-);
 const publishedPosts = allPosts
   .filter(post => !post.data.draft)
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
@@ -29,9 +44,7 @@ const totalDestinations = allDestinations.length;
 const totalStories = publishedPosts.length;
 ---
 
-<BaseLayout
-  lang='en'
->
+<BaseLayout lang={lang as Language}>
   <main
     class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
   >
@@ -76,21 +89,22 @@ const totalStories = publishedPosts.length;
           <h1
             class="mb-6 text-4xl font-bold text-balance text-slate-900 md:text-6xl lg:text-7xl dark:text-white"
           >
-            Travel <span
+            {t('hero.title').split(' ')[0]}
+            <span
               class="bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 bg-clip-text text-transparent"
-              >Stories</span
-            >
+              >{t('hero.title').split(' ').slice(1).join(' ')}
+            </span>
           </h1>
 
           <p
             class="mx-auto mb-8 max-w-3xl text-xl text-balance text-slate-700 md:text-2xl dark:text-slate-300"
           >
-            Exploring the world one story at a time. Join me on adventures across continents,
-            through hidden gems, and into the heart of different cultures.
+            {t('hero.subtitle')}
           </p>
 
           <!-- Travel Stats -->
           <TravelStats
+            lang={lang as Language}
             countries={totalCountries}
             destinations={totalDestinations}
             stories={totalStories}
@@ -100,8 +114,12 @@ const totalStories = publishedPosts.length;
           <div
             class="mx-auto mt-12 flex max-w-2xl flex-col items-center justify-center gap-4 lg:flex-row"
           >
-            <TravelSearchBar />
-            <DestinationFilter destinations={allDestinations} countries={allCountries} />
+            <TravelSearchBar lang={lang as Language} />
+            <DestinationFilter
+              lang={lang as Language}
+              destinations={allDestinations}
+              countries={allCountries}
+            />
           </div>
         </div>
       </div>
@@ -114,11 +132,10 @@ const totalStories = publishedPosts.length;
           <section class="mb-20">
             <div class="mb-12 text-center">
               <h2 class="mb-4 text-3xl font-bold text-slate-900 md:text-4xl dark:text-white">
-                Featured Adventures
+                {t('featured.title')}
               </h2>
               <p class="mx-auto max-w-2xl text-lg text-slate-600 dark:text-slate-400">
-                Dive into my most memorable journeys and discover the stories that shaped my
-                travels.
+                {t('featured.subtitle')}
               </p>
             </div>
 
@@ -129,6 +146,7 @@ const totalStories = publishedPosts.length;
                   featured={true}
                   large={index === 0}
                   class="transform transition-all duration-300 hover:scale-102"
+                  lang={lang as Language}
                 />
               ))}
             </div>
@@ -143,10 +161,10 @@ const totalStories = publishedPosts.length;
         >
           <div>
             <h2 class="mb-2 text-3xl font-bold text-slate-900 md:text-4xl dark:text-white">
-              Recent Adventures
+              {t('recent.title')}
             </h2>
             <p class="text-lg text-slate-600 dark:text-slate-400">
-              Fresh stories from the road, still warm with wanderlust.
+              {t('recent.title')}
             </p>
           </div>
 
@@ -154,23 +172,23 @@ const totalStories = publishedPosts.length;
             <button
               class="rounded-full border border-slate-300 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 backdrop-blur-sm transition-colors hover:bg-amber-50 dark:border-slate-600 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:bg-slate-700"
             >
-              Latest
+              {t('filter.latest')}
             </button>
             <button
               class="rounded-full border border-slate-300 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 backdrop-blur-sm transition-colors hover:bg-amber-50 dark:border-slate-600 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:bg-slate-700"
             >
-              Popular
+              {t('filter.popular')}
             </button>
             <button
               class="rounded-full border border-slate-300 bg-white/80 px-4 py-2 text-sm font-medium text-slate-700 backdrop-blur-sm transition-colors hover:bg-amber-50 dark:border-slate-600 dark:bg-slate-800/80 dark:text-slate-300 dark:hover:bg-slate-700"
             >
-              Photos
+              {t('filter.photos')}
             </button>
           </div>
         </div>
 
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {recentAdventures.map(story => <TravelStoryCard post={story} />)}
+          {recentAdventures.map(story => <TravelStoryCard lang={lang as Language} post={story} />)}
         </div>
       </section>
 
@@ -182,7 +200,7 @@ const totalStories = publishedPosts.length;
               class="inline-flex transform items-center rounded-full bg-gradient-to-r from-amber-600 to-orange-600 px-8 py-4 text-base font-medium text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-amber-700 hover:to-orange-700 hover:shadow-xl"
               id="load-more"
             >
-              Discover More Adventures
+              {t('load.more')}
               <svg class="ml-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   stroke-linecap="round"
@@ -217,16 +235,15 @@ const totalStories = publishedPosts.length;
               </div>
             </div>
 
-            <h3 class="mb-4 text-3xl font-bold md:text-4xl">Join the Journey</h3>
+            <h3 class="mb-4 text-3xl font-bold md:text-4xl">{t('newsletter.title')}</h3>
             <p class="mb-8 text-xl text-balance text-orange-100 md:text-2xl">
-              Get travel stories, tips, and inspiration delivered to your inbox. Plus, exclusive
-              behind-the-scenes content from my adventures.
+              {t('newsletter.subtitle')}
             </p>
 
             <form class="mx-auto flex max-w-lg flex-col gap-4 sm:flex-row">
               <input
                 type="email"
-                placeholder="your.email@example.com"
+                placeholder={t('newsletter.email')}
                 class="flex-1 rounded-full border-1 border-amber-400 px-6 py-4 text-slate-100 placeholder-slate-200 backdrop-blur-sm focus:border-orange-600 focus:ring-4 focus:ring-white/20 focus:outline-none"
                 required
               />
@@ -234,12 +251,12 @@ const totalStories = publishedPosts.length;
                 type="submit"
                 class="rounded-full bg-white px-8 py-4 font-semibold text-orange-600 shadow-lg transition-colors hover:bg-orange-50 focus:ring-4 focus:ring-white/20 focus:outline-none"
               >
-                Start Exploring
+                {t('newsletter.button')}
               </button>
             </form>
 
             <p class="mt-6 text-sm text-orange-200">
-              ✈️ No spam, just stories. Unsubscribe anytime.
+              {t('newsletter.note')}
             </p>
           </div>
         </div>

@@ -1,0 +1,55 @@
+---
+import BlogPostLayout from '@layouts/BlogPostLayout.astro';
+import { type CollectionEntry, getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props: post,
+  }));
+}
+
+type Props = CollectionEntry<'blog'>;
+
+const post = Astro.props;
+const { Content, headings } = await post.render();
+
+// Get related posts based on shared destinations or countries
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(
+    p =>
+      p.slug !== post.slug &&
+      !p.data.draft &&
+      // Posts with shared destinations
+      (p.data.destinations?.some(dest => post.data.destinations?.includes(dest)) ||
+        // Posts with shared countries
+        p.data.countries?.some(country => post.data.countries?.includes(country)) ||
+        // Posts with same trip type
+        (p.data.tripType === post.data.tripType && post.data.tripType) ||
+        // Fallback to shared regular tags
+        p.data.tags?.some(tag => post.data.tags?.includes(tag)))
+  )
+  .slice(0, 3);
+---
+
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  publishDate={post.data.publishDate}
+  coverImage={post.data.coverImage}
+  destinations={post.data.destinations}
+  countries={post.data.countries}
+  travelDates={post.data.travelDates}
+  tripType={post.data.tripType}
+  duration={post.data.duration}
+  budget={post.data.budget}
+  photos={post.data.photos}
+  headings={headings}
+  relatedPosts={relatedPosts}
+  mapCoordinates={post.data.mapCoordinates}
+>
+  <Content />
+</BlogPostLayout>

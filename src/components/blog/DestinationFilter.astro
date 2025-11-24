@@ -1,0 +1,105 @@
+---
+import { useTranslations, type Language } from '@libs/i18n/config';
+import DestinationSelect from './DestinationSelect';
+
+export interface Props {
+  destinations: string[];
+  countries: string[];
+  lang?: Language;
+}
+
+const { destinations, countries, lang = 'en' } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="relative max-w-xs flex-1 z-50">
+  <DestinationSelect
+    allLabel={t('hero.allDestinations')}
+    countries={countries}
+    destinations={destinations}
+    client:load
+  />
+</div>
+
+<script>
+  // Type for the CustomEvent payload
+  type DestinationFilterDetail = {
+    type: string | null;
+    value: string;
+  };
+
+  window.addEventListener('destinationFilterChange', event => {
+    const customEvent = event as CustomEvent<DestinationFilterDetail>;
+    const detail = customEvent.detail || { type: null, value: '' };
+
+    const type = detail.type;
+    const value = detail.value;
+
+    if (!type || !value) {
+      showAllTravelStories();
+      return;
+    }
+
+    console.log(`Filtering by ${type}:`, value);
+    filterTravelStories(type, value);
+  });
+
+  function filterTravelStories(type: string, value: string) {
+    // Tell TS these are HTMLElements so dataset exists
+    const storyCards = document.querySelectorAll<HTMLElement>(
+      '[data-destinations], [data-countries], [data-trip-type]'
+    );
+
+    storyCards.forEach(cardElement => {
+      let shouldShow = false;
+
+      switch (type) {
+        case 'country': {
+          const countries = (cardElement.dataset.countries || '').split(',');
+          shouldShow = countries.includes(value);
+          break;
+        }
+        case 'destination': {
+          const destinations = (cardElement.dataset.destinations || '').split(',');
+          shouldShow = destinations.includes(value);
+          break;
+        }
+        case 'type': {
+          const tripType = (cardElement.dataset.tripType || '').toLowerCase();
+          shouldShow = tripType.includes(value.toLowerCase());
+          break;
+        }
+        case 'region': {
+          shouldShow = checkRegionMatch(cardElement, value);
+          break;
+        }
+      }
+
+      cardElement.style.display = shouldShow ? 'block' : 'none';
+    });
+  }
+
+  function showAllTravelStories() {
+    const storyCards = document.querySelectorAll<HTMLElement>(
+      '[data-destinations], [data-countries], [data-trip-type]'
+    );
+    storyCards.forEach(cardElement => {
+      cardElement.style.display = 'block';
+    });
+  }
+
+  function checkRegionMatch(card: HTMLElement, region: string): boolean {
+    const countries = (card.dataset.countries || '').split(',');
+
+    const regionMap: Record<string, string[]> = {
+      asia: ['Japan', 'Thailand', 'Indonesia', 'India', 'China', 'Vietnam', 'Cambodia'],
+      europe: ['France', 'Italy', 'Spain', 'Germany', 'UK', 'Greece', 'Portugal'],
+      america: ['USA', 'Canada', 'Mexico', 'Brazil', 'Argentina', 'Peru', 'Chile'],
+      africa: ['Morocco', 'Egypt', 'South Africa', 'Kenya', 'Tanzania', 'Ethiopia'],
+      oceania: ['Australia', 'New Zealand', 'Fiji', 'Tahiti'],
+    };
+
+    const regionCountries = regionMap[region] || [];
+    return countries.some(country => regionCountries.includes(country));
+  }
+</script>

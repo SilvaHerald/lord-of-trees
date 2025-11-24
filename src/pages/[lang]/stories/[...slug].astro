@@ -1,0 +1,72 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BlogPostLayout from '@layouts/BlogPostLayout.astro';
+import { languages, type Language } from '@libs/i18n/config';
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+
+  return Object.keys(languages).flatMap((lang) => {
+    // Filter posts by language
+    const langPosts = allPosts.filter(post => post.data.lang === lang);
+
+    return langPosts.map(post => {
+      // Remove language folder from slug for clean URLs
+      const cleanSlug = post.slug.replace(`${lang}/`, '');
+
+      return {
+        params: {
+          lang,           // URL: /vi/blog/...
+          slug: cleanSlug // URL: .../bali-adventure
+        },
+        props: post,
+      };
+    });
+  });
+}
+
+type Props = CollectionEntry<'blog'>
+
+const post = Astro.props;
+const { lang } = Astro.params;
+const { Content, headings } = await post.render();
+
+// Get related posts based on shared destinations or countries
+const allPosts = await getCollection('blog');
+const relatedPosts = allPosts
+  .filter(
+    p =>
+{
+  return  p.data.lang === lang && p.slug !== post.slug &&
+      !p.data.draft &&
+      // Posts with shared destinations
+      (p.data.destinations?.some(dest => post.data.destinations?.includes(dest)) ||
+        // Posts with shared countries
+        p.data.countries?.some(country => post.data.countries?.includes(country)) ||
+        // Posts with same trip type
+        (p.data.tripType === post.data.tripType && post.data.tripType) ||
+        // Fallback to shared regular tags
+        p.data.tags?.some(tag => post.data.tags?.includes(tag)))}
+  )
+  .slice(0, 3);
+---
+
+<BlogPostLayout
+  title={post.data.title}
+  description={post.data.description}
+  publishDate={post.data.publishDate}
+  lang={lang as Language}
+  coverImage={post.data.coverImage}
+  destinations={post.data.destinations}
+  countries={post.data.countries}
+  travelDates={post.data.travelDates}
+  tripType={post.data.tripType}
+  duration={post.data.duration}
+  budget={post.data.budget}
+  photos={post.data.photos}
+  headings={headings}
+  relatedPosts={relatedPosts}
+  mapCoordinates={post.data.mapCoordinates}
+>
+  <Content />
+</BlogPostLayout>
