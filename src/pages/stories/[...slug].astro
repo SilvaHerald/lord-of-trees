@@ -6,7 +6,7 @@ export async function getStaticPaths() {
   const posts = await getCollection('blog');
 
   return posts.map(post => ({
-    params: { slug: post.slug },
+    params: { slug: post.slug.replace('en/', '') },
     props: post,
   }));
 }
@@ -21,7 +21,7 @@ const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
   .filter(
     p =>
-      p.slug !== post.slug &&
+      p.data.lang === 'en' && p.slug !== post.slug &&
       !p.data.draft &&
       // Posts with shared destinations
       (p.data.destinations?.some(dest => post.data.destinations?.includes(dest)) ||
@@ -50,6 +50,7 @@ const relatedPosts = allPosts
   headings={headings}
   relatedPosts={relatedPosts}
   mapCoordinates={post.data.mapCoordinates}
+  tips={post.data.travelTips!}
 >
   <Content />
 </BlogPostLayout>

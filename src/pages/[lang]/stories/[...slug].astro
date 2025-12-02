@@ -1,7 +1,7 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPostLayout from '@layouts/BlogPostLayout.astro';
 import { languages, type Language } from '@libs/i18n/config';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -36,8 +36,7 @@ const allPosts = await getCollection('blog');
 const relatedPosts = allPosts
   .filter(
     p =>
-{
-  return  p.data.lang === lang && p.slug !== post.slug &&
+      p.data.lang === lang && p.slug !== post.slug &&
       !p.data.draft &&
       // Posts with shared destinations
       (p.data.destinations?.some(dest => post.data.destinations?.includes(dest)) ||
@@ -46,7 +45,7 @@ const relatedPosts = allPosts
         // Posts with same trip type
         (p.data.tripType === post.data.tripType && post.data.tripType) ||
         // Fallback to shared regular tags
-        p.data.tags?.some(tag => post.data.tags?.includes(tag)))}
+        p.data.tags?.some(tag => post.data.tags?.includes(tag)))
   )
   .slice(0, 3);
 ---
@@ -67,6 +66,7 @@ const relatedPosts = allPosts
   headings={headings}
   relatedPosts={relatedPosts}
   mapCoordinates={post.data.mapCoordinates}
+  tips={post.data.travelTips!}
 >
   <Content />
 </BlogPostLayout>

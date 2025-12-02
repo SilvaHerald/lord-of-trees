@@ -1,7 +1,8 @@
 ---
 import LanguageSwitcher from '../components/LanguageSwitcher.astro';
-import { useTranslations, type Language } from '../libs/i18n/config';
+import { defaultLang, useTranslations, type Language } from '../libs/i18n/config';
 import '../styles/global.css';
+import { mergePath } from '../utils/path-utils';
 
 export interface Props {
   lang?: Language;
@@ -15,6 +16,11 @@ const t = useTranslations(lang as Language);
 
 let title = t('hero.title');
 let description = t('hero.subtitle');
+let baseUrl = '/';
+
+if(lang !== defaultLang) {
+  baseUrl = `/${lang}`;
+}
 
 if (is404) {
   title = t('404.title');
@@ -102,7 +108,7 @@ if (is404) {
         <div class="flex items-center justify-between py-4">
           <!-- Logo -->
           <div class="flex items-center">
-            <a href=`/${lang}` class="group flex items-center space-x-3">
+            <a href=`${baseUrl}` class="group flex items-center space-x-3">
               <!-- Travel Icon -->
               <div
                 class="visible transform rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 p-2 opacity-100 shadow-lg transition-all duration-200 group-hover:scale-105 group-hover:shadow-xl"
@@ -137,13 +143,13 @@ if (is404) {
           <!-- Navigation -->
           <div class="hidden items-center space-x-8 md:flex">
             <a
-              href=`/${lang}`
+              href=`${baseUrl}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               {t('nav.home')}
             </a>
             <a
-              href=`/${lang}/stories`
+              href=`${mergePath(baseUrl, '/stories')}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               {t('nav.stories')}
@@ -200,13 +206,13 @@ if (is404) {
               </div>
             </div>
             <a
-              href=`/${lang}/about`
+              href=`${mergePath(baseUrl, '/about')}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               {t('nav.about')}
             </a>
             <a
-              href=`/${lang}/contact`
+              href=`${mergePath(baseUrl, '/contact')}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               {t('nav.contact')}
@@ -281,31 +287,31 @@ if (is404) {
         >
           <div class="flex flex-col space-y-4">
             <a
-              href=`/${lang}`
+              href=`${baseUrl}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               🏠 {t('nav.home')}
             </a>
             <a
-              href=`/${lang}/stories`
+              href=`${mergePath(baseUrl, '/stories')}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               📖 {t('nav.stories')}
             </a>
             <a
-              href=`/${lang}/destinations`
+              href=`${mergePath(baseUrl, '/destinations')}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               🗺️ {t('nav.destinations')}
             </a>
             <a
-              href=`/${lang}/about`
+              href=`${mergePath(baseUrl, '/about')}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               👋 {t('nav.about')}
             </a>
             <a
-              href=`/${lang}/contact`
+              href=`${mergePath(baseUrl, '/contact')}`
               class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
             >
               💌 {t('nav.contact')}
@@ -548,19 +554,19 @@ if (is404) {
             </p>
             <div class="flex items-center space-x-6">
               <a
-                href=`/${lang}/privacy`
+                href=`${mergePath(baseUrl, '/privacy')}`
                 class="text-sm text-slate-400 transition-colors hover:text-amber-400"
               >
                 {t('footer.privacy')}
               </a>
               <a
-                href=`/${lang}/terms`
+                href=`${mergePath(baseUrl, '/terms')}`
                 class="text-sm text-slate-400 transition-colors hover:text-amber-400"
               >
                 {t('footer.terms')}
               </a>
               <a
-                href=`/${lang}/sitemap.xml`
+                href=`${mergePath(baseUrl, '/sitemap.xml')}`
                 class="text-sm text-slate-400 transition-colors hover:text-amber-400"
               >
                 {t('footer.sitemap')}

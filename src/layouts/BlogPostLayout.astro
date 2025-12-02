@@ -8,6 +8,7 @@ import TravelShareButtons from '../components/blog/TravelShareButtons.astro';
 import RelatedDestinations from '../components/blog/RelatedDestinations.astro';
 import { useTranslations, type Language } from '@libs/i18n/config';
 import type { BlogType } from '../interfaces/blog.interface';
+import { secureRandomInt } from '../utils/math-utils';
 
 export interface Props {
   title: string;
@@ -25,6 +26,7 @@ export interface Props {
   headings: any[];
   relatedPosts?: CollectionEntry<'blog'>[];
   mapCoordinates?: { lat: number; lng: number };
+  tips: string[];
 }
 
 const {
@@ -43,6 +45,7 @@ const {
   headings,
   relatedPosts,
   mapCoordinates,
+  tips
 } = Astro.props;
 
 const t = useTranslations(lang as Language);
@@ -478,8 +481,7 @@ const t = useTranslations(lang as Language);
                   {t('post.travelTip')}
                 </h3>
                 <p class="text-sm text-slate-700 italic dark:text-slate-300">
-                  "Always pack a portable charger and download offline maps before exploring. You
-                  never know when you'll need them most!"
+                  {tips[secureRandomInt(0, tips.length - 1)]}
                 </p>
               </div>
             </div>

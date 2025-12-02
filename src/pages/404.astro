@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { defaultLang, useTranslations, getLangFromUrl, type Language } from '@libs/i18n/config';
 
@@ -354,7 +354,7 @@ const blogPath = currentLang === defaultLang ? '/stories' : `/${currentLang}/sto
             // Get current language from URL
             const pathSegments = window.location.pathname.split('/').filter(Boolean);
             const possibleLang = pathSegments[0];
-            const supportedLangs = ['vi', 'es'];
+            const supportedLangs = ['vi', 'en'];
             const isLangInUrl = supportedLangs.includes(possibleLang);
 
             // Build search URL with language
