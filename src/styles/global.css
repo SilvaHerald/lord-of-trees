@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
 /* Custom base styles for travel blog */
 @layer base {
   html {
@@ -44,7 +45,7 @@
     background: linear-gradient(to bottom, theme(colors.amber.500), theme(colors.orange.600));
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark {
     ::-webkit-scrollbar-track {
       background-color: theme(colors.slate.800);
     }
@@ -89,7 +90,7 @@
     background-size: 20px 20px;
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark {
     .travel-pattern {
       background-image: radial-gradient(
         circle at 1px 1px,
@@ -106,7 +107,7 @@
     border: 1px solid theme(colors.amber.200);
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark {
     .destination-tag {
       background: linear-gradient(
         135deg,
@@ -126,7 +127,7 @@
     outline-offset: 2px;
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark {
     *:focus-visible {
       outline-color: theme(colors.amber.400);
     }
@@ -256,12 +257,6 @@
     font-family: 'Inter', system-ui, sans-serif;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel {
-      color: theme(colors.slate.300);
-    }
-  }
-
   /* Travel blog headings with serif font */
   .prose-travel :is(h1, h2, h3, h4, h5, h6) {
     font-family: 'Playfair Display', serif;
@@ -270,12 +265,6 @@
     margin-top: theme(spacing.8);
     margin-bottom: theme(spacing.4);
     line-height: theme(lineHeight.tight);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .prose-travel :is(h1, h2, h3, h4, h5, h6) {
-      color: theme(colors.white);
-    }
   }
 
   .prose-travel h1 {
@@ -294,6 +283,10 @@
   }
 
   .prose-travel h2 {
+    background: linear-gradient(135deg, theme(colors.amber.500), theme(colors.orange.500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     font-size: theme(fontSize.2xl);
     margin-top: theme(spacing.12);
     margin-bottom: theme(spacing.6);
@@ -307,7 +300,7 @@
     top: 50%;
     transform: translateY(-50%);
     width: 4px;
-    height: 20px;
+    height: 100%;
     background: linear-gradient(to bottom, theme(colors.amber.500), theme(colors.orange.500));
     border-radius: 2px;
   }
@@ -325,12 +318,6 @@
     color: theme(colors.amber.700);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel h3 {
-      color: theme(colors.amber.400);
-    }
-  }
-
   @media (min-width: 768px) {
     .prose-travel h3 {
       font-size: theme(fontSize.2xl);
@@ -339,15 +326,9 @@
 
   /* Paragraphs and text */
   .prose-travel p {
-    color: theme(colors.slate.700);
+    color: black;
     line-height: theme(lineHeight.relaxed);
     margin-bottom: theme(spacing.6);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .prose-travel p {
-      color: theme(colors.slate.300);
-    }
   }
 
   .prose-travel strong {
@@ -355,22 +336,10 @@
     font-weight: theme(fontWeight.semibold);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel strong {
-      color: theme(colors.white);
-    }
-  }
-
   /* Travel-specific emphasis styles */
   .prose-travel em {
     color: theme(colors.amber.700);
     font-style: italic;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .prose-travel em {
-      color: theme(colors.amber.400);
-    }
   }
 
   /* Links with travel theme */
@@ -389,19 +358,6 @@
     border-radius: 4px;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel a {
-      color: theme(colors.amber.400);
-      border-bottom-color: theme(colors.amber.600);
-    }
-
-    .prose-travel a:hover {
-      color: theme(colors.amber.300);
-      border-bottom-color: theme(colors.amber.400);
-      background-color: theme(colors.amber.900);
-    }
-  }
-
   /* Code styling */
   .prose-travel :not(pre) > code {
     font-size: theme(fontSize.sm);
@@ -413,18 +369,6 @@
     border: 1px solid theme(colors.amber.200);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel :not(pre) > code {
-      background: linear-gradient(
-        135deg,
-        theme(colors.amber.900) 0%,
-        theme(colors.orange.900) 100%
-      );
-      color: theme(colors.amber.200);
-      border-color: theme(colors.amber.700);
-    }
-  }
-
   /* Pre-formatted code blocks */
   .prose-travel pre {
     background-color: theme(colors.slate.900);
@@ -433,13 +377,6 @@
     padding: theme(spacing.4);
     overflow-x: auto;
     margin: theme(spacing.6) 0;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .prose-travel pre {
-      background-color: theme(colors.slate.950);
-      border-color: theme(colors.slate.700);
-    }
   }
 
   /* Travel-themed blockquotes */
@@ -464,20 +401,6 @@
     font-family: 'Playfair Display', serif;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel blockquote {
-      background: linear-gradient(
-        135deg,
-        theme(colors.amber.900) 0%,
-        theme(colors.orange.900) 100%
-      );
-    }
-
-    .prose-travel blockquote::before {
-      color: theme(colors.amber.600);
-    }
-  }
-
   /* Lists with travel styling */
   .prose-travel :is(ul, ol) {
     color: theme(colors.slate.700);
@@ -493,12 +416,6 @@
   /* Custom bullet points for travel lists */
   .prose-travel ul li::marker {
     content: '✈️ ';
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .prose-travel :is(ul, ol, li) {
-      color: theme(colors.slate.300);
-    }
   }
 
   /* Images with travel styling */
@@ -533,13 +450,6 @@
     margin-bottom: 0;
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel .travel-tip {
-      background: linear-gradient(135deg, theme(colors.blue.900) 0%, theme(colors.cyan.900) 100%);
-      border-color: theme(colors.blue.700);
-    }
-  }
-
   /* Tables for travel information */
   .prose-travel table {
     font-size: theme(fontSize.sm);
@@ -562,25 +472,102 @@
     border-top: 1px solid theme(colors.slate.200);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .prose-travel table {
-      border-color: theme(colors.slate.700);
-    }
+    /* Dark mode overrides – driven by `.dark` on <html> */
 
-    .prose-travel th {
-      background: linear-gradient(
-        135deg,
-        theme(colors.amber.800) 0%,
-        theme(colors.orange.800) 100%
-      );
-      color: theme(colors.white);
-    }
-
-    .prose-travel td {
-      color: theme(colors.slate.300);
-      border-top-color: theme(colors.slate.700);
-    }
+  .dark .prose-travel {
+    color: theme(colors.slate.300);
   }
+
+  .dark .prose-travel :is(h1, h2, h3, h4, h5, h6) {
+    color: theme(colors.white);
+  }
+
+  .dark .prose-travel h3 {
+    color: theme(colors.amber.400);
+  }
+
+  .dark .prose-travel p {
+    color: theme(colors.slate.300);
+  }
+
+  .dark .prose-travel strong {
+    color: theme(colors.white);
+  }
+
+  .dark .prose-travel em {
+    color: theme(colors.amber.400);
+  }
+
+  .dark .prose-travel a {
+    color: theme(colors.amber.400);
+    border-bottom-color: theme(colors.amber.600);
+  }
+
+  .dark .prose-travel a:hover {
+    color: theme(colors.amber.300);
+    border-bottom-color: theme(colors.amber.400);
+    background-color: theme(colors.amber.900);
+  }
+
+  .dark .prose-travel :not(pre) > code {
+    background: linear-gradient(
+      135deg,
+      theme(colors.amber.900) 0%,
+      theme(colors.orange.900) 100%
+    );
+    color: theme(colors.amber.200);
+    border-color: theme(colors.amber.700);
+  }
+
+  .dark .prose-travel pre {
+    background-color: theme(colors.slate.950);
+    border-color: theme(colors.slate.700);
+  }
+
+  .dark .prose-travel blockquote {
+    background: linear-gradient(
+      135deg,
+      theme(colors.amber.900) 0%,
+      theme(colors.orange.900) 100%
+    );
+  }
+
+  .dark .prose-travel blockquote::before {
+    color: theme(colors.amber.600);
+  }
+
+  .dark .prose-travel :is(ul, ol, li) {
+    color: theme(colors.slate.300);
+  }
+
+  .dark .prose-travel .travel-tip {
+    background: linear-gradient(
+      135deg,
+      theme(colors.blue.900) 0%,
+      theme(colors.cyan.900) 100%
+    );
+    border-color: theme(colors.blue.700);
+  }
+
+  .dark .prose-travel table {
+    border-color: theme(colors.slate.700);
+  }
+
+  .dark .prose-travel th {
+    background: linear-gradient(
+      135deg,
+      theme(colors.amber.800) 0%,
+      theme(colors.orange.800) 100%
+    );
+    color: theme(colors.white);
+  }
+
+  .dark .prose-travel td {
+    color: theme(colors.slate.300);
+    border-top-color: theme(colors.slate.700);
+  }
+
+
 }
 
 /* Loading states for travel content */
@@ -597,7 +584,7 @@
     border-radius: theme(borderRadius.DEFAULT);
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark {
     .skeleton {
       background: linear-gradient(
         90deg,
@@ -619,7 +606,7 @@
     animation: spin 1s linear infinite;
   }
 
-  @media (prefers-color-scheme: dark) {
+  .dark {
     .loading-spinner {
       border-color: theme(colors.amber.700);
       border-top-color: theme(colors.amber.400);
