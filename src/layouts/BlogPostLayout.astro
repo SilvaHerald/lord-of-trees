@@ -21,7 +21,7 @@ export interface Props {
   travelDates?: string;
   tripType?: BlogType['tripType'];
   duration?: string;
-  budget?: string;
+  budget?: BlogType['budget'];
   photos?: string[];
   headings: any[];
   relatedPosts?: CollectionEntry<'blog'>[];
@@ -227,7 +227,7 @@ const t = useTranslations(lang as Language);
                       <span class="text-sm font-medium text-slate-600 dark:text-slate-400">
                         {t('post.budget')}:
                       </span>
-                      <p class="text-sm text-slate-800 dark:text-slate-200">{budget}</p>
+                      <p class="text-sm text-slate-800 dark:text-slate-200">{t(`budget.${budget}`)}</p>
                     </div>
                   )
                 }
@@ -262,7 +262,7 @@ const t = useTranslations(lang as Language);
             {
               photos && photos.length > 0 && (
                 <div class="mb-12">
-                  <PhotoGallery photos={photos} />
+                  <PhotoGallery lang={lang as Language} photos={photos} />
                 </div>
               )
             }

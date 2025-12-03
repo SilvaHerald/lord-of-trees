@@ -18,7 +18,7 @@ let title = t('hero.title');
 let description = t('hero.subtitle');
 let baseUrl = '/';
 
-if(lang !== defaultLang) {
+if (lang !== defaultLang) {
   baseUrl = `/${lang}`;
 }
 
@@ -35,7 +35,7 @@ if (is404) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="color-scheme" content="dark light">
+    <meta name="color-scheme" content="dark light" />
     <!-- Primary Meta Tags -->
     <title>{title}</title>
     <meta name="title" content={title} />
@@ -73,7 +73,7 @@ if (is404) {
     />
 
     <!-- RSS Feeds -->
-     <RSSLinks />
+    <RSSLinks />
 
     <!-- Theme Script -->
     <script is:inline>
@@ -411,16 +411,16 @@ if (is404) {
                 class="mr-2 h-5 w-5 text-amber-400"
                 fill="none"
                 stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
                 viewBox="0 0 24 24"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                ></path>
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M16 8l-4 8-4-4 8-4z"></path>
               </svg>
-              {t('footer.destinations')}
+
+              {t('footer.tripTypes')}
             </h4>
             <ul class="space-y-3">
               <li>
@@ -428,7 +428,7 @@ if (is404) {
                   href="/blog?tag=adventure"
                   class="text-sm text-slate-300 transition-colors hover:text-amber-400"
                 >
-                  🏔️ Adventure Travel
+                  🏔️ {t('tripType.adventure')}
                 </a>
               </li>
               <li>
@@ -436,7 +436,7 @@ if (is404) {
                   href="/blog?tag=solo-travel"
                   class="text-sm text-slate-300 transition-colors hover:text-amber-400"
                 >
-                  🎒 Solo Adventures
+                  🎒 {t('tripType.solo')}
                 </a>
               </li>
               <li>
@@ -444,7 +444,7 @@ if (is404) {
                   href="/blog?tag=culture"
                   class="text-sm text-slate-300 transition-colors hover:text-amber-400"
                 >
-                  🏛️ Cultural Immersion
+                  🏛️ {t('tripType.cultural')}
                 </a>
               </li>
               <li>
@@ -452,7 +452,7 @@ if (is404) {
                   href="/blog?tag=food"
                   class="text-sm text-slate-300 transition-colors hover:text-amber-400"
                 >
-                  🍜 Food & Culinary
+                  🍜 {t('tripType.food')}
                 </a>
               </li>
               <li>
@@ -460,7 +460,7 @@ if (is404) {
                   href="/blog?tag=nature"
                   class="text-sm text-slate-300 transition-colors hover:text-amber-400"
                 >
-                  🌿 Nature & Wildlife
+                  🌿 {t('tripType.nature')}
                 </a>
               </li>
             </ul>

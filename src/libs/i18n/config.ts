@@ -62,7 +62,7 @@ export const ui = {
     'post.newsletter': 'Join My Journey',
     'post.newsletterText': 'Get travel stories and tips straight to your inbox.',
     'post.travelTip': 'Travel Tip',
-    'post.about': 'About the Traveler',
+    'post.about': 'Author',
     'post.aboutDescription':
       "Hey there! I'm a passionate traveler who believes that every journey has a story worth telling. Through my adventures across 50+ countries, I've learned that travel is not just about the destinations, but about the moments, people, and experiences that transform us along the way.",
     'post.myStory': 'My Story',
@@ -71,7 +71,7 @@ export const ui = {
     'footer.subtitle':
       'Join me as I explore the world one story at a time. From hidden gems to iconic destinations, I share the real, raw, and transformative moments that make travel unforgettable.',
     'footer.tagline': 'Made with ❤️ for fellow travelers.',
-    'footer.destinations': 'Destinations',
+    'footer.tripTypes': 'Trip Types',
     'footer.resources': 'Resources',
     'footer.travelTips': 'Travel Tips',
     'footer.gearGuide': 'Gear Guide',
@@ -169,7 +169,7 @@ export const ui = {
     'post.newsletter': 'Tham Gia Hành Trình',
     'post.newsletterText': 'Nhận câu chuyện du lịch và mẹo gửi thẳng đến hộp thư.',
     'post.travelTip': 'Mẹo Du Lịch',
-    'post.about': 'Về Người Du Lịch',
+    'post.about': 'Tác Giả Bài Viết',
     'post.aboutDescription':
       'Xin chào! Tôi là một người đam mê du lịch, tin rằng mỗi hành trình đều có một câu chuyện đáng để kể. Qua những chuyến phiêu lưu của mình qua hơn 50 quốc gia, tôi đã nhận ra rằng du lịch không chỉ là về những điểm đến, mà còn là về những khoảnh khắc, con người và trải nghiệm làm thay đổi chúng ta trên hành trình.',
     'post.myStory': 'Câu Chuyện Của Tôi',
@@ -178,7 +178,7 @@ export const ui = {
     'footer.subtitle':
       'Hãy cùng tôi khám phá thế giới qua từng câu chuyện. Từ những điểm đến bí ẩn đến những địa danh nổi tiếng, tôi chia sẻ những khoảnh khắc chân thực, nguyên bản và đầy cảm hứng, khiến mỗi chuyến đi trở nên khó quên.',
     'footer.tagline': 'Được tạo với ❤️ cho những người yêu du lịch.',
-    'footer.destinations': 'Điểm Đến',
+    'footer.tripTypes': 'Kiểu Du Lịch',
     'footer.resources': 'Tài Nguyên',
     'footer.travelTips': 'Mẹo Du Lịch',
     'footer.gearGuide': 'Hướng Dẫn Trang Bị',

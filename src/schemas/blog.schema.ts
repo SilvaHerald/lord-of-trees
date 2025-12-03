@@ -35,14 +35,10 @@ export const blogSchema = z.object({
     .optional(),
   budget: z
     .enum([
-      'Budget',
-      'Mid-Range',
-      'Luxury',
-      'Backpacker',
-      'Under $500',
-      '$500-$1500',
-      '$1500-$3000',
-      'Above $3000',
+      'budget',
+      'midRange',
+      'luxury',
+      'backpacker'
     ])
     .optional(),
 
