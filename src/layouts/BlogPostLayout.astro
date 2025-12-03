@@ -1,14 +1,14 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
-import TravelPostMeta from '../components/blog/TravelPostMeta.astro';
-import PhotoGallery from '../components/blog/PhotoGallery.astro';
-import TravelTableOfContents from '../components/blog/TravelTableOfContents.astro';
-import TravelShareButtons from '../components/blog/TravelShareButtons.astro';
-import RelatedDestinations from '../components/blog/RelatedDestinations.astro';
+import TravelPostMeta from '@components/blog/TravelPostMeta.astro';
+import PhotoGallery from '@components/blog/PhotoGallery.astro';
+import TravelTableOfContents from '@components/blog/TravelTableOfContents.astro';
+import TravelShareButtons from '@components/blog/TravelShareButtons.astro';
+import RelatedDestinations from '@components/blog/RelatedDestinations.astro';
 import { useTranslations, type Language } from '@libs/i18n/config';
-import type { BlogType } from '../interfaces/blog.interface';
-import { secureRandomInt } from '../utils/math-utils';
+import type { BlogType } from '@interfaces/blog.interface';
+import { secureRandomInt } from '@utils/math-utils';
 
 export interface Props {
   title: string;
