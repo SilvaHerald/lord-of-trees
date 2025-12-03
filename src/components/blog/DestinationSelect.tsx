@@ -165,12 +165,14 @@ const DestinationSelect = ({ allLabel, countries, destinations }: DestinationSel
               width: panelPos.width,
               zIndex: 9999,
             }}
-            className="max-h-80 overflow-y-auto rounded-xl bg-slate-900/95 text-sm text-white shadow-2xl backdrop-blur-sm"
+            className="max-h-80 overflow-y-auto rounded-xl bg-orange-50 text-sm shadow-2xl shadow-black/5 backdrop-blur-sm dark:bg-slate-900/95 dark:text-white"
           >
             <button
               type="button"
-              className={`flex w-full items-center px-4 py-2 text-left hover:bg-white/10 ${
-                value === null ? 'bg-amber-500/80 text-slate-900' : ''
+              className={`flex w-full items-center px-4 py-2 text-left ${
+                value === null
+                  ? 'bg-amber-100 font-medium dark:bg-amber-500'
+                  : 'hover:bg-amber-100 bg-white dark:bg-slate-600 dark:hover:bg-slate-700'
               }`}
               onClick={() => handleSelect(null)}
             >
@@ -179,8 +181,8 @@ const DestinationSelect = ({ allLabel, countries, destinations }: DestinationSel
 
             {groups.map(group => (
               <div key={group.label} className="border-t border-white/5">
-                <div className="bg-slate-800/90 px-4 py-2 text-xs font-semibold tracking-wide text-amber-300 uppercase">
-                  <span className="mr-1">{group.icon}</span>
+                <div className="bg-teal-50 px-4 py-2 text-xs font-semibold tracking-wide text-teal-700 uppercase dark:bg-slate-800/90 dark:text-amber-300">
+                  <span className="mr-1 text-teal-600">{group.icon}</span>
                   {group.label}
                 </div>
                 {group.options.map(opt => {
@@ -189,8 +191,10 @@ const DestinationSelect = ({ allLabel, countries, destinations }: DestinationSel
                     <button
                       key={opt.value}
                       type="button"
-                      className={`flex w-full items-center px-4 py-2 text-left hover:bg-white/10 ${
-                        isSelected ? 'bg-slate-700' : ''
+                      className={`flex w-full items-center px-4 py-2 text-left text-neutral-800 hover:bg-amber-50 dark:text-white dark:hover:bg-slate-700 ${
+                        isSelected
+                          ? 'bg-amber-100 font-medium dark:bg-amber-500'
+                          : 'bg-white dark:bg-slate-600'
                       }`}
                       onClick={() => handleSelect(opt.value)}
                     >
