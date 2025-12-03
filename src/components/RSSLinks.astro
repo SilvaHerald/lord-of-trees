@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+// Get all blog posts to determine available languages
+const blogPosts = await getCollection('blog');
+const availableLanguages = [...new Set(blogPosts.map(post => post.data.lang))];
+
+// Language display names
+const LANGUAGE_NAMES = {
+  en: 'English',
+  vi: 'Tiếng Việt',
+  // es: 'Español',
+  // fr: 'Français',
+  // de: 'Deutsch',
+  // ja: '日本語',
+  // ko: '한국어',
+  // zh: '中文',
+  // Add more as needed
+};
+
+// Generate RSS feed URLs for all available languages
+const rssFeeds = availableLanguages.map(langCode => ({
+  lang: langCode,
+  url: langCode === 'en' ? '/rss.xml' : `/${langCode}/rss.xml`,
+  title: `Travel Stories RSS Feed (${LANGUAGE_NAMES[langCode] || langCode.toUpperCase()})`,
+  isCurrent: langCode === lang
+}));
+---
+
+<!-- RSS Feeds for all available languages -->
+{rssFeeds.map(feed => (
+  <link
+    rel={feed.isCurrent ? 'alternate' : 'alternate'}
+    type="application/rss+xml"
+    title={feed.title}
+    href={feed.url}
+    hreflang={feed.lang}
+  />
+))}

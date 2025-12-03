@@ -3,6 +3,7 @@ import LanguageSwitcher from '../components/LanguageSwitcher.astro';
 import { defaultLang, useTranslations, type Language } from '../libs/i18n/config';
 import '../styles/global.css';
 import { mergePath } from '../utils/path-utils';
+import RSSLinks from '../components/RSSLinks.astro';
 
 export interface Props {
   lang?: Language;
@@ -71,6 +72,9 @@ if (is404) {
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap"
       rel="stylesheet"
     />
+
+    <!-- RSS Feeds -->
+     <RSSLinks />
 
     <!-- Theme Script -->
     <script is:inline>

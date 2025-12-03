@@ -8,7 +8,7 @@ export const blogSchema = z.object({
   updatedDate: z.coerce.date().optional(),
 
   // i18n fields
-  lang: z.enum(['en', 'vi', 'es', 'fr', 'de', 'ja', 'zh']).default('en'),
+  lang: z.enum(['en', 'vi']).default('en'),
   translationOf: z.string().optional(), // Slug of the original post
   availableLanguages: z.array(z.enum(['en', 'vi', 'es', 'fr', 'de', 'ja', 'zh'])).default([]),
 
