@@ -8,7 +8,7 @@ const currentLang = getLangFromUrl(Astro.url) || defaultLang;
 const t = useTranslations(currentLang);
 
 // Get random posts in the current language
-const allPosts = await getCollection('post');
+const allPosts = await getCollection('posts');
 const langPosts = allPosts.filter(post => !post.data.draft && post.data.lang === currentLang);
 const randomPosts = langPosts.sort(() => Math.random() - 0.5).slice(0, 3);
 

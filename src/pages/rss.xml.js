@@ -4,7 +4,7 @@ import sanitizeHtml from 'sanitize-html';
 
 export async function GET(context) {
   // Get all blog posts
-  const blogPosts = await getCollection('post');
+  const blogPosts = await getCollection('posts');
 
   // Filter for English posts (default feed)
   const enPosts = blogPosts.filter(post => post.data.lang === 'en');

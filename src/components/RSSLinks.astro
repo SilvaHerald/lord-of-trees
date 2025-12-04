@@ -8,7 +8,7 @@ interface Props {
 const { lang = 'en' } = Astro.props;
 
 // Get all blog posts to determine available languages
-const blogPosts = await getCollection('post');
+const blogPosts = await getCollection('posts');
 const availableLanguages = [...new Set(blogPosts.map(post => post.data.lang))];
 
 // Language display names

@@ -2,13 +2,13 @@
 import { postSchema } from '@schemas/post.schema';
 import { defineCollection } from 'astro:content';
 
-const post = defineCollection({
+const posts = defineCollection({
   type: 'content',
   schema: postSchema,
 });
 
 export const collections = {
-  post,
+  posts,
 };
 
 // Example usage in a travel blog post:
