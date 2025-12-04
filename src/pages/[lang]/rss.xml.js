@@ -35,7 +35,7 @@ export async function GET(context) {
   }
 
   // Get all blog posts
-  const blogPosts = await getCollection('blog');
+  const blogPosts = await getCollection('post');
 
   // Filter posts for current language
   const langPosts = blogPosts.filter(post => post.data.lang === lang);

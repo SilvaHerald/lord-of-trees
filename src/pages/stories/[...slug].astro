@@ -3,7 +3,7 @@ import BlogPostLayout from '@layouts/BlogPostLayout.astro';
 import { type CollectionEntry, getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const posts = await getCollection('post');
 
   return posts.map(post => ({
     params: { slug: post.slug.replace('en/', '') },
@@ -11,13 +11,13 @@ export async function getStaticPaths() {
   }));
 }
 
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<'post'>;
 
 const post = Astro.props;
 const { Content, headings } = await post.render();
 
 // Get related posts based on shared destinations or countries
-const allPosts = await getCollection('blog');
+const allPosts = await getCollection('post');
 const relatedPosts = allPosts
   .filter(
     p =>

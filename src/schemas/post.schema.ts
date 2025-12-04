@@ -1,6 +1,6 @@
 import { z } from 'astro:content';
 
-export const blogSchema = z.object({
+export const postSchema = z.object({
   // Basic post info
   title: z.string(),
   description: z.string(),
@@ -33,14 +33,7 @@ export const blogSchema = z.object({
       'photography',
     ])
     .optional(),
-  budget: z
-    .enum([
-      'budget',
-      'midRange',
-      'luxury',
-      'backpacker'
-    ])
-    .optional(),
+  budget: z.enum(['budget', 'midRange', 'luxury', 'backpacker']).optional(),
 
   // Visual content
   coverImage: z.string().optional(),

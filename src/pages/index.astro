@@ -7,7 +7,7 @@ import DestinationFilter from '@components/blog/DestinationFilter.astro';
 import TravelStats from '@components/blog/TravelStats.astro';
 
 // Get all blog posts and sort by date
-const allPosts = await getCollection('blog', ({data}) =>
+const allPosts = await getCollection('post', ({data}) =>
   data.lang === 'en'
 );
 const publishedPosts = allPosts

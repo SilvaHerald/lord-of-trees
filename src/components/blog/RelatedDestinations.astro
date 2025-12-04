@@ -1,10 +1,10 @@
 ---
-import type { CollectionEntry } from 'astro:content';
 import { useTranslations, type Language } from '@libs/i18n/config';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
   lang?: Language;
-  posts: CollectionEntry<'blog'>[];
+  posts: CollectionEntry<'post'>[];
 }
 
 const { lang = 'en', posts } = Astro.props;

@@ -1,4 +1,4 @@
-import type { z } from "astro:content";
-import type { blogSchema } from "@schemas/blog.schema";
+import type { postSchema } from '@schemas/post.schema';
+import type { z } from 'astro:content';
 
-export type BlogType = z.infer<typeof blogSchema>
+export type BlogType = z.infer<typeof postSchema>;

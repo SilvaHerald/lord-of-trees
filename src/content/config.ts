@@ -1,14 +1,14 @@
 // src/content/config.ts
-import { defineCollection, z } from 'astro:content';
-import { blogSchema } from '@schemas/blog.schema';
+import { postSchema } from '@schemas/post.schema';
+import { defineCollection } from 'astro:content';
 
-const blog = defineCollection({
+const post = defineCollection({
   type: 'content',
-  schema: blogSchema,
+  schema: postSchema,
 });
 
 export const collections = {
-  blog,
+  post,
 };
 
 // Example usage in a travel blog post:
