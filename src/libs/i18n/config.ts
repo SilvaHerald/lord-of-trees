@@ -321,7 +321,7 @@ export function useTranslations(lang: Language) {
 // Helper to get localized path
 export function getLocalizedPath(path: string, lang: Language): string {
   if (lang === defaultLang) return path;
-  return `/${lang}${path.endsWith('/') ? path.substring(0, -1) : path}`;
+  return `/${lang}${path.endsWith('/') ? path.substring(0, path.length - 1) : path}`;
 }
 
 // Helper to extract language from URL

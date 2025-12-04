@@ -1,6 +1,6 @@
 ---
+import { convertDateToLanguageFormat, defaultLang, removeLanguagePrefix, useTranslations, type Language } from '@libs/i18n/config';
 import type { CollectionEntry } from 'astro:content';
-import { convertDateToLanguageFormat, removeLanguagePrefix, useTranslations, type Language } from '@libs/i18n/config';
 
 export interface Props {
   post: CollectionEntry<'blog'>;
@@ -17,6 +17,8 @@ const t = useTranslations(lang as Language);
 
 // Calculate reading time (rough estimate)
 const readingTime = Math.ceil(post.body.length / 1000);
+
+const travelPostUrl = `${lang === defaultLang ? '' : lang}/stories${removeLanguagePrefix(post.slug)}`;
 ---
 
 <article
@@ -95,7 +97,7 @@ const readingTime = Math.ceil(post.body.length / 1000);
     <h3
       class={`font-bold text-slate-900 dark:text-white mb-3 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-2 ${featured && large ? 'text-2xl' : featured ? 'text-xl' : 'text-lg'}`}
     >
-      <a href={`${lang}/stories${removeLanguagePrefix(post.slug)}`}>
+      <a href={travelPostUrl}>
         {post.data.title}
       </a>
     </h3>
