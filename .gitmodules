@@ -1,0 +1,4 @@
+[submodule "src/content"]
+	path = src/content
+	url = git@github.com:SilvaHerald/lord-of-trees-content.git
+	branch = main
