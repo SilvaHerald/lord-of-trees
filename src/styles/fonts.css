@@ -1,102 +1,11 @@
 /* ========== Custom self-hosted fonts ========== */
 
-/* Heading font: Cormorant Garamond */
-@font-face {
-  font-family: 'CormorantGaramondCustom';
-  src: url('/fonts/cormorant-garamond/CormorantGaramond-Light.woff2')
-    format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'CormorantGaramondCustom';
-  src: url('/fonts/cormorant-garamond/CormorantGaramond-Regular.woff2')
-    format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'CormorantGaramondCustom';
-  src: url('/fonts/cormorant-garamond/CormorantGaramond-Medium.woff2')
-    format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'CormorantGaramondCustom';
-  src: url('/fonts/cormorant-garamond/CormorantGaramond-SemiBold.woff2')
-    format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'CormorantGaramondCustom';
-  src: url('/fonts/cormorant-garamond/CormorantGaramond-Bold.woff2')
-    format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* Alternative heading font: Playfair Display */
-@font-face {
-  font-family: 'PlayfairDisplayCustom';
-  src: url('/fonts/playfair-display/PlayfairDisplay-Regular.woff2')
-    format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* Heading font: Playfair Display */
 
 @font-face {
   font-family: 'PlayfairDisplayCustom';
-  src: url('/fonts/playfair-display/PlayfairDisplay-Medium.woff2')
-    format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlayfairDisplayCustom';
-  src: url('/fonts/playfair-display/PlayfairDisplay-SemiBold.woff2')
-    format('woff2');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlayfairDisplayCustom';
-  src: url('/fonts/playfair-display/PlayfairDisplay-Bold.woff2')
-    format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlayfairDisplayCustom';
-  src: url('/fonts/playfair-display/PlayfairDisplay-ExtraBold.woff2')
-    format('woff2');
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'PlayfairDisplayCustom';
-  src: url('/fonts/playfair-display/PlayfairDisplay-Black.woff2')
-    format('woff2');
-  font-weight: 900;
+  src: url('/fonts/playfair-display/PlayfairDisplay-Variable.woff2') format('woff2-variations');
+    font-weight: 400 900;       /* 👈 weight RANGE, not single value */
   font-style: normal;
   font-display: swap;
 }
@@ -104,48 +13,8 @@
 /* Body font: Inter */
 @font-face {
   font-family: 'InterCustom';
-  src: url('/fonts/inter/Inter-Thin.woff2') format('woff2');
-  font-weight: 100;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'InterCustom';
-  src: url('/fonts/inter/Inter-ExtraLight.woff2') format('woff2');
-  font-weight: 200;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'InterCustom';
-  src: url('/fonts/inter/Inter-Light.woff2') format('woff2');
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'InterCustom';
-  src: url('/fonts/inter/Inter-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'InterCustom';
-  src: url('/fonts/inter/Inter-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'InterCustom';
-  src: url('/fonts/inter/Inter-SemiBold.woff2') format('woff2');
-  font-weight: 600;
+  src: url('/fonts/inter/Inter-Variable.woff2') format('woff2-variations');
+    font-weight: 100 900;       /* 👈 weight RANGE, not single value */
   font-style: normal;
   font-display: swap;
 }
