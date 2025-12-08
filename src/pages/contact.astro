@@ -1,12 +1,16 @@
 ---
-import { defaultLang, useTranslations } from '@libs/i18n/config';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 import { getImageUrl } from '@utils/image';
 
-const t = useTranslations(defaultLang);
+const t = useTranslations(defaultLang as Language);
 ---
 
-<BaseLayout title={t('contact.pageTitle')} description={t('contact.pageDescription')}>
+<BaseLayout
+  lang={defaultLang as Language}
+  title={t('contact.pageTitle')}
+  description={t('contact.pageDescription')}
+>
   <!-- Hero Section -->
   <section class="relative flex h-[50vh] min-h-[350px] items-center justify-center overflow-hidden">
     <!-- Background Image -->
@@ -23,10 +27,11 @@ const t = useTranslations(defaultLang);
     </div>
     <div class="relative z-10 px-4 text-center">
       <h1 class="mb-4 text-5xl font-bold text-white drop-shadow-lg md:text-6xl">
-        Get In <span class="text-orange-400">Touch</span>
+        {t('contact.hero.title')}
+        <span class="text-orange-400">{t('contact.hero.highlight')}</span>
       </h1>
       <p class="mx-auto max-w-2xl text-xl text-white/90 drop-shadow">
-        Have a question? Want to collaborate? I'd love to hear from you!
+        {t('contact.hero.subtitle')}
       </p>
     </div>
   </section>
@@ -36,10 +41,11 @@ const t = useTranslations(defaultLang);
     <div class="grid gap-12 lg:grid-cols-2">
       <!-- Contact Form -->
       <div>
-        <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">Send Me a Message</h2>
+        <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+          {t('contact.form.title')}
+        </h2>
         <p class="mb-8 text-gray-700 dark:text-gray-300">
-          Whether you have a travel question, collaboration proposal, or just want to say hi, I'm
-          all ears. I typically respond within 24-48 hours.
+          {t('contact.form.description')}
         </p>
 
         <form class="space-y-6" action="/api/contact" method="POST">
@@ -49,7 +55,7 @@ const t = useTranslations(defaultLang);
               for="name"
               class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Your Name *
+              {t('contact.form.input1.label')}
             </label>
             <input
               type="text"
@@ -57,7 +63,7 @@ const t = useTranslations(defaultLang);
               name="name"
               required
               class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-              placeholder="John Doe"
+              placeholder={t('contact.form.input1.placeholder')}
             />
           </div>
 
@@ -67,7 +73,7 @@ const t = useTranslations(defaultLang);
               for="email"
               class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Email Address *
+              {t('contact.form.input2.label')}
             </label>
             <input
               type="email"
@@ -75,7 +81,7 @@ const t = useTranslations(defaultLang);
               name="email"
               required
               class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-              placeholder="john@example.com"
+              placeholder={t('contact.form.input2.placeholder')}
             />
           </div>
 
@@ -85,7 +91,7 @@ const t = useTranslations(defaultLang);
               for="subject"
               class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Subject *
+              {t('contact.form.input3.label')}
             </label>
             <input
               type="text"
@@ -93,7 +99,7 @@ const t = useTranslations(defaultLang);
               name="subject"
               required
               class="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-              placeholder="Travel question about Bali"
+              placeholder={t('contact.form.input3.placeholder')}
             />
           </div>
 
@@ -103,7 +109,7 @@ const t = useTranslations(defaultLang);
               for="message"
               class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
-              Your Message *
+              {t('contact.form.input4.label')}
             </label>
             <textarea
               id="message"
@@ -111,7 +117,7 @@ const t = useTranslations(defaultLang);
               required
               rows="6"
               class="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
-              placeholder="Tell me about your travel plans or questions..."></textarea>
+              placeholder={t('contact.form.input4.placeholder')}></textarea>
           </div>
 
           <!-- Submit Button -->
@@ -119,7 +125,7 @@ const t = useTranslations(defaultLang);
             type="submit"
             class="w-full transform rounded-lg bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-4 font-semibold text-white shadow-lg transition-all duration-200 hover:scale-[1.02] hover:from-orange-600 hover:to-orange-700 hover:shadow-xl active:scale-[0.98]"
           >
-            Send Message
+            {t('contact.form.submitButton')}
           </button>
         </form>
       </div>
@@ -129,7 +135,7 @@ const t = useTranslations(defaultLang);
         <!-- Quick Contact Info -->
         <div>
           <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-            Other Ways to Connect
+            {t('contact.info.title')}
           </h2>
 
           <div class="space-y-4">
@@ -146,12 +152,14 @@ const t = useTranslations(defaultLang);
                 </svg>
               </div>
               <div>
-                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">Email</h3>
+                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">
+                  {t('contact.info.email.title')}
+                </h3>
                 <a
                   href="mailto:hello@lordoftrees.com"
                   class="text-orange-500 transition-colors hover:text-orange-600"
                 >
-                  hello@lordoftrees.com
+                  {t('contact.info.email.description')}
                 </a>
               </div>
             </div>
@@ -168,8 +176,12 @@ const t = useTranslations(defaultLang);
                 </svg>
               </div>
               <div>
-                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">Response Time</h3>
-                <p class="text-gray-700 dark:text-gray-300">Usually within 24-48 hours</p>
+                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">
+                  {t('contact.info.responseTime.title')}
+                </h3>
+                <p class="text-gray-700 dark:text-gray-300">
+                  {t('contact.info.responseTime.description')}
+                </p>
               </div>
             </div>
 
@@ -186,8 +198,12 @@ const t = useTranslations(defaultLang);
                 </svg>
               </div>
               <div>
-                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">Currently Based In</h3>
-                <p class="text-gray-700 dark:text-gray-300">Somewhere in Southeast Asia 🌏</p>
+                <h3 class="mb-1 font-semibold text-gray-900 dark:text-white">
+                  {t('contact.info.location.title')}
+                </h3>
+                <p class="text-gray-700 dark:text-gray-300">
+                  {t('contact.info.location.description')}
+                </p>
               </div>
             </div>
           </div>
@@ -195,10 +211,11 @@ const t = useTranslations(defaultLang);
 
         <!-- Social Media -->
         <div>
-          <h3 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">Follow My Journey</h3>
+          <h3 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">
+            {t('contact.info.socialMedia.title')}
+          </h3>
           <p class="mb-6 text-gray-700 dark:text-gray-300">
-            Join me on social media for daily travel inspiration, behind-the-scenes moments, and
-            real-time adventures.
+            {t('contact.info.socialMedia.description')}
           </p>
 
           <div class="grid grid-cols-2 gap-4">
@@ -268,19 +285,21 @@ const t = useTranslations(defaultLang);
         <div
           class="rounded-xl bg-gradient-to-br from-orange-50 to-blue-50 p-6 dark:from-gray-800 dark:to-gray-900"
         >
-          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">📝 Common Questions</h3>
+          <h3 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+            {t('contact.info.faq.title')}
+          </h3>
           <div class="space-y-3 text-sm">
             <p class="text-gray-700 dark:text-gray-300">
-              <strong>Collaborations:</strong> I'm open to brand partnerships that align with my values.
-              Please include details in your message.
+              <strong>{t('contact.info.faq.question1.highlight')}</strong>
+              {t('contact.info.faq.question1.text')}
             </p>
             <p class="text-gray-700 dark:text-gray-300">
-              <strong>Travel Advice:</strong> I love helping fellow travelers! Be specific with your
-              questions for the best advice.
+              <strong>{t('contact.info.faq.question2.highlight')}</strong>
+              {t('contact.info.faq.question2.text')}
             </p>
             <p class="text-gray-700 dark:text-gray-300">
-              <strong>Guest Posts:</strong> Currently not accepting guest posts, but feel free to pitch
-              unique ideas!
+              <strong>{t('contact.info.faq.question3.highlight')}</strong>
+              {t('contact.info.faq.question3.text')}
             </p>
           </div>
         </div>

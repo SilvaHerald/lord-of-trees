@@ -1,12 +1,17 @@
 ---
-import { defaultLang, useTranslations } from '@libs/i18n/config';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 import { getImageUrl } from '@utils/image';
+import AnimatedCounter from '@components/AnimatedCounter.astro';
 
-const t = useTranslations(defaultLang);
+const t = useTranslations(defaultLang as Language);
 ---
 
-<BaseLayout title={t('about.pageTitle')} description={t('about.pageDescription')}>
+<BaseLayout
+  lang={defaultLang as Language}
+  title={t('about.pageTitle')}
+  description={t('about.pageDescription')}
+>
   <!-- Hero Section -->
   <section class="relative flex h-[60vh] min-h-[400px] items-center justify-center overflow-hidden">
     <!-- Background Image -->
@@ -32,10 +37,11 @@ const t = useTranslations(defaultLang);
         </svg>
       </div>
       <h1 class="mb-4 text-5xl font-bold text-gray-900 md:text-6xl dark:text-white">
-        About <span class="text-orange-500">Lord Of Trees</span>
+        {t('about.hero.title')}
+        <span class="text-orange-500">{t('about.hero.highlight')}</span>
       </h1>
       <p class="mx-auto max-w-2xl text-xl text-gray-700 dark:text-gray-300">
-        Journey of Experience
+        {t('about.hero.subTitle')}
       </p>
     </div>
   </section>
@@ -54,17 +60,13 @@ const t = useTranslations(defaultLang);
         </div>
         <div class="md:w-2/3">
           <h2 class="mb-4 text-3xl font-bold text-gray-900 dark:text-white">
-            Hey there, I'm a wanderer at heart 👋
+            {t('about.intro.greeting')}
           </h2>
           <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
-            Welcome to my corner of the internet! I'm a full-time traveler, part-time storyteller,
-            and eternal student of the world. For the past 5 years, I've been exploring our
-            beautiful planet, one adventure at a time.
+            {t('about.intro.text1')}
           </p>
           <p class="text-lg text-gray-700 dark:text-gray-300">
-            What started as a solo backpacking trip through Southeast Asia turned into a lifestyle.
-            Now, I share my experiences, tips, and the occasional mishap to help you plan your own
-            unforgettable journeys.
+            {t('about.intro.text2')}
           </p>
         </div>
       </div>
@@ -72,23 +74,18 @@ const t = useTranslations(defaultLang);
 
     <!-- My Story -->
     <div class="mb-16">
-      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">My Story</h2>
+      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+        {t('about.story.title')}
+      </h2>
       <div class="prose prose-lg dark:prose-invert max-w-none">
         <p class="mb-4 text-gray-700 dark:text-gray-300">
-          I wasn't always a traveler. In fact, I spent my early twenties stuck in a cubicle,
-          dreaming of distant lands while staring at spreadsheets. The turning point came during a
-          particularly soul-crushing Monday morning when I realized I was living for weekends and
-          dreading Mondays.
+          {t('about.story.text1')}
         </p>
         <p class="mb-4 text-gray-700 dark:text-gray-300">
-          So I made a decision that terrified my parents and excited my soul: I quit my job, sold
-          most of my possessions, and booked a one-way ticket to Thailand. That was in 2019, and I
-          haven't looked back since.
+          {t('about.story.text2')}
         </p>
         <p class="text-gray-700 dark:text-gray-300">
-          Since then, I've explored over 45 countries across 5 continents, learned to surf in Bali,
-          hiked the Inca Trail to Machu Picchu, got lost (multiple times) in the medinas of Morocco,
-          and made friends from every corner of the globe.
+          {t('about.story.text3')}
         </p>
       </div>
     </div>
@@ -98,31 +95,45 @@ const t = useTranslations(defaultLang);
       class="mb-16 rounded-2xl bg-gradient-to-br from-orange-50 to-blue-50 p-8 dark:from-gray-800 dark:to-gray-900"
     >
       <h2 class="mb-8 text-center text-3xl font-bold text-gray-900 dark:text-white">
-        By The Numbers
+        {t('about.travelStats.title')}
       </h2>
       <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">45+</div>
-          <div class="text-gray-700 dark:text-gray-300">Countries Visited</div>
-        </div>
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">150+</div>
-          <div class="text-gray-700 dark:text-gray-300">Cities Explored</div>
-        </div>
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">5</div>
-          <div class="text-gray-700 dark:text-gray-300">Continents</div>
-        </div>
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">100+</div>
-          <div class="text-gray-700 dark:text-gray-300">Travel Stories</div>
-        </div>
+        <!-- Countries Visited -->
+        <AnimatedCounter
+          end={45}
+          suffix="+"
+          label={t('about.travelStats.countriesVisited')}
+          duration={2000}
+        />
+        <!-- Cities Explored -->
+        <AnimatedCounter
+          end={150}
+          suffix="+"
+          label={t('about.travelStats.citiesExplored')}
+          duration={2500}
+        />
+        <!-- Continents -->
+        <AnimatedCounter
+          end={5}
+          suffix=""
+          label={t('about.travelStats.continents')}
+          duration={1500}
+        />
+        <!-- Travel Stories -->
+        <AnimatedCounter
+          end={100}
+          suffix="+"
+          label={t('about.travelStats.travelStories')}
+          duration={2000}
+        />
       </div>
     </div>
 
     <!-- What I Believe -->
     <div class="mb-16">
-      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">What I Believe</h2>
+      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+        {t('about.whatIBelieve.title')}
+      </h2>
       <div class="grid gap-6 md:grid-cols-2">
         <div class="rounded-xl bg-white p-6 shadow-lg dark:bg-gray-800">
           <div class="mb-3 text-orange-500">
@@ -136,11 +147,10 @@ const t = useTranslations(defaultLang);
             </svg>
           </div>
           <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
-            Travel is for Everyone
+            {t('about.whatIBelieve.first.title')}
           </h3>
           <p class="text-gray-700 dark:text-gray-300">
-            You don't need to be rich to travel. With smart planning and flexibility, the world is
-            more accessible than you think.
+            {t('about.whatIBelieve.first.text')}
           </p>
         </div>
 
@@ -156,11 +166,10 @@ const t = useTranslations(defaultLang);
             </svg>
           </div>
           <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
-            Authentic Connections
+            {t('about.whatIBelieve.second.title')}
           </h3>
           <p class="text-gray-700 dark:text-gray-300">
-            The best travel experiences come from connecting with locals and immersing yourself in
-            their culture, not just checking off tourist sites.
+            {t('about.whatIBelieve.second.text')}
           </p>
         </div>
 
@@ -175,10 +184,11 @@ const t = useTranslations(defaultLang);
               ></path>
             </svg>
           </div>
-          <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Sustainable Travel</h3>
+          <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+            {t('about.whatIBelieve.third.title')}
+          </h3>
           <p class="text-gray-700 dark:text-gray-300">
-            We have a responsibility to protect the places we visit. Travel mindfully, respect local
-            cultures, and leave destinations better than you found them.
+            {t('about.whatIBelieve.third.text')}
           </p>
         </div>
 
@@ -193,10 +203,11 @@ const t = useTranslations(defaultLang);
               ></path>
             </svg>
           </div>
-          <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">Embrace the Unknown</h3>
+          <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+            {t('about.whatIBelieve.fourth.title')}
+          </h3>
           <p class="text-gray-700 dark:text-gray-300">
-            The best adventures happen when you step outside your comfort zone. Say yes to
-            opportunities that scare you a little.
+            {t('about.whatIBelieve.fourth.text')}
           </p>
         </div>
       </div>
@@ -204,16 +215,14 @@ const t = useTranslations(defaultLang);
 
     <!-- Why This Blog -->
     <div class="mb-16">
-      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">Why This Blog Exists</h2>
+      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+        {t('about.whyThisBlog.title')}
+      </h2>
       <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
-        I created Lord Of Trees to share practical travel advice, inspiring stories, and honest
-        reviews that help you travel better. No fluff, no sponsored content disguised as advice—just
-        real experiences from someone who's been there.
+        {t('about.whyThisBlog.text1')}
       </p>
       <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
-        Whether you're planning your first solo trip, looking for off-the-beaten-path destinations,
-        or just need some travel inspiration, I hope you'll find something here that sparks your
-        wanderlust.
+        {t('about.whyThisBlog.text2')}
       </p>
     </div>
 
@@ -221,16 +230,15 @@ const t = useTranslations(defaultLang);
     <div
       class="rounded-2xl bg-gradient-to-r from-orange-500 to-orange-600 p-12 text-center text-white"
     >
-      <h2 class="mb-4 text-3xl font-bold">Let's Stay Connected</h2>
+      <h2 class="mb-4 text-3xl font-bold">{t('about.cta.title')}</h2>
       <p class="mb-6 text-lg opacity-90">
-        Join me on this journey around the world. Follow along for travel tips, destination guides,
-        and the occasional misadventure.
+        {t('about.cta.text')}
       </p>
       <a
         href="/contact"
         class="inline-block rounded-full bg-white px-8 py-3 font-semibold text-orange-600 transition-colors hover:bg-gray-100"
       >
-        Get In Touch
+        {t('about.cta.button')}
       </a>
     </div>
   </div>

@@ -1,0 +1,96 @@
+---
+interface Props {
+  end: number;
+  suffix?: string;
+  duration?: number;
+  label: string;
+}
+
+const { end, suffix = '', duration = 2000, label } = Astro.props;
+---
+
+<div class="text-center animated-stat" data-end={end} data-suffix={suffix} data-duration={duration}>
+  <div class="text-4xl font-bold text-orange-500 mb-2">
+    <span class="counter">0</span><span class="suffix">{suffix}</span>
+  </div>
+  <div class="text-gray-700 dark:text-gray-300">{label}</div>
+</div>
+
+<script>
+  // Easing function for smooth animation
+  function easeOutExpo(t: number): number {
+    return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+  }
+
+  // Animate counter from 0 to target
+  function animateCounter(element: HTMLElement, target: number, duration: number, suffix: string) {
+    const counterSpan = element.querySelector('.counter')!;
+    if (!counterSpan) return;
+
+    const startTime = Date.now();
+
+    function update() {
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      // Apply easing
+      const easedProgress = easeOutExpo(progress);
+      const currentValue = Math.floor(easedProgress * target);
+
+      counterSpan.textContent = currentValue.toString();
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      } else {
+        counterSpan.textContent = target.toString();
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Intersection Observer to trigger animation on scroll
+  function setupCounters() {
+    const stats = document.querySelectorAll('.animated-stat');
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const element = entry.target as HTMLElement;
+
+            // Only animate once
+            if (element.dataset.animated === 'true') return;
+            element.dataset.animated = 'true';
+
+            const end = parseInt(element.dataset.end || '0');
+            const suffix = element.dataset.suffix || '';
+            const duration = parseInt(element.dataset.duration || '2000');
+
+            // Small delay for better effect
+            setTimeout(() => {
+              animateCounter(element, end, duration, suffix);
+            }, 100);
+          }
+        });
+      },
+      {
+        threshold: 0.3, // Trigger when 30% of element is visible
+        rootMargin: '0px'
+      }
+    );
+
+    stats.forEach((stat) => observer.observe(stat));
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupCounters);
+  } else {
+    setupCounters();
+  }
+
+  // Re-initialize after page navigation (for SPA-like behavior)
+  document.addEventListener('astro:page-load', setupCounters);
+</script>

@@ -2,6 +2,7 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { languages, useTranslations, type Language } from '@libs/i18n/config';
 import { getImageUrl } from '@utils/image';
+import AnimatedCounter from '@components/AnimatedCounter.astro';
 
 export async function getStaticPaths() {
   return Object.keys(languages).flatMap(lang => {
@@ -107,26 +108,34 @@ const t = useTranslations(lang as Language);
         {t('about.travelStats.title')}
       </h2>
       <div class="grid grid-cols-2 gap-6 md:grid-cols-4">
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">45+</div>
-          <div class="text-gray-700 dark:text-gray-300">
-            {t('about.travelStats.countriesVisited')}
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">150+</div>
-          <div class="text-gray-700 dark:text-gray-300">
-            {t('about.travelStats.citiesExplored')}
-          </div>
-        </div>
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">5</div>
-          <div class="text-gray-700 dark:text-gray-300">{t('about.travelStats.continents')}</div>
-        </div>
-        <div class="text-center">
-          <div class="mb-2 text-4xl font-bold text-orange-500">100+</div>
-          <div class="text-gray-700 dark:text-gray-300">{t('about.travelStats.travelStories')}</div>
-        </div>
+        <!-- Countries Visited -->
+        <AnimatedCounter
+          end={45}
+          suffix="+"
+          label={t('about.travelStats.countriesVisited')}
+          duration={2000}
+        />
+        <!-- Cities Explored -->
+        <AnimatedCounter
+          end={150}
+          suffix="+"
+          label={t('about.travelStats.citiesExplored')}
+          duration={2500}
+        />
+        <!-- Continents -->
+        <AnimatedCounter
+          end={5}
+          suffix=""
+          label={t('about.travelStats.continents')}
+          duration={1500}
+        />
+        <!-- Travel Stories -->
+        <AnimatedCounter
+          end={100}
+          suffix="+"
+          label={t('about.travelStats.travelStories')}
+          duration={2000}
+        />
       </div>
     </div>
 
@@ -204,7 +213,9 @@ const t = useTranslations(lang as Language);
               ></path>
             </svg>
           </div>
-          <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">{t('about.whatIBelieve.fourth.title')}</h3>
+          <h3 class="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+            {t('about.whatIBelieve.fourth.title')}
+          </h3>
           <p class="text-gray-700 dark:text-gray-300">
             {t('about.whatIBelieve.fourth.text')}
           </p>
@@ -214,7 +225,9 @@ const t = useTranslations(lang as Language);
 
     <!-- Why This Blog -->
     <div class="mb-16">
-      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">{t('about.whyThisBlog.title')}</h2>
+      <h2 class="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
+        {t('about.whyThisBlog.title')}
+      </h2>
       <p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
         {t('about.whyThisBlog.text1')}
       </p>
