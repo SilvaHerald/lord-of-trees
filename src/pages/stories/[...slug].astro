@@ -40,8 +40,8 @@ const relatedPosts = allPosts
 ---
 
 <BlogPostLayout
-  pageTitle={t('stories.pageTitle', post.data.title)}
-  pageDescription={t('stories.pageDescription', post.data.description)}
+  pageTitle={t('stories.pageTitle', { placeholder: post.data.title })}
+  pageDescription={t('stories.pageDescription', { placeholder: post.data.description })}
   postTitle={post.data.title}
   postDescription={post.data.description}
   publishDate={post.data.publishDate}

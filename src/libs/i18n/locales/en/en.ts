@@ -158,7 +158,7 @@ export const en = {
 
   // stories page translation
   stories: {
-    pageTitle: 'Stories - ${placeholder}',
+    pageTitle: 'Stories - {placeholder}',
     pageDescription: '{placeholder}',
   },
 
