@@ -1,5 +1,4 @@
-// @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, envField } from 'astro/config';
 
 import react from '@astrojs/react';
 
@@ -12,6 +11,11 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  env: {
+    schema: {
+      PUBLIC_IMAGE_BASE_URL: envField.string({context: "client", access: "public"})
+    },
+  },
   site: 'https://yourdomain.com',
 
   markdown: {
@@ -37,9 +41,7 @@ export default defineConfig({
   ],
 
   vite: {
-    plugins: [
-      tailwindcss(),
-    ],
+    plugins: [tailwindcss()],
   },
 
   // i18n configuration

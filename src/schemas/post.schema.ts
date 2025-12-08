@@ -57,7 +57,7 @@ export const postSchema = z.object({
     .object({
       name: z.string().default('Travel Blogger'),
       email: z.string().email().optional(),
-      avatar: z.string().default('/images/travel-author-avatar.jpg'),
+      avatar: z.string().default('/avatars/travel-author-avatar.jpg'),
       bio: z.string().optional(),
       socialMedia: z
         .object({

@@ -1,6 +1,7 @@
 ---
 import { convertDateToLanguageFormat, defaultLang, removeLanguagePrefix, useTranslations, type Language } from '@libs/i18n/config';
 import type { CollectionEntry } from 'astro:content';
+import { getImageUrl } from '@utils/image';
 
 export interface Props {
   post: CollectionEntry<'posts'>;
@@ -28,7 +29,7 @@ const travelPostUrl = `${lang === defaultLang ? '' : '/' + lang}/stories${remove
     post.data.coverImage && (
       <div class={`relative overflow-hidden ${large ? 'aspect-[4/3]' : 'aspect-video'}`}>
         <img
-          src={post.data.coverImage}
+          src={getImageUrl(post.data.coverImage)}
           alt={post.data.title}
           class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
@@ -83,7 +84,7 @@ const travelPostUrl = `${lang === defaultLang ? '' : '/' + lang}/stories${remove
               ))}
               {post.data.destinations.length > 2 && (
                 <span class="inline-flex items-center rounded-md bg-black/40 px-2 py-1 text-xs font-medium text-white backdrop-blur-sm">
-                  +{post.data.destinations.length - 2} {t('post.destinations.more')}
+                  +{post.data.destinations.length - 2} {t('post.destinationsMore')}
                 </span>
               )}
             </div>

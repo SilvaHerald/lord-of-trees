@@ -6,6 +6,7 @@ import TravelSearchBar from '@components/blog/TravelSearchBar.astro';
 import DestinationFilter from '@components/blog/DestinationFilter.astro';
 import TravelStats from '@components/blog/TravelStats.astro';
 import { languages, useTranslations, type Language } from '@libs/i18n/config';
+import { getImageUrl } from '@utils/image';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
@@ -53,7 +54,7 @@ const totalStories = publishedPosts.length;
       <!-- Background Image -->
       <div class="absolute inset-0 z-0">
         <img
-          src="/images/travel-hero-bg.jpg"
+          src={getImageUrl('/demo/travel-hero-bg.jpg')}
           alt="Travel background"
           class="h-full w-full object-cover opacity-50 dark:opacity-50"
         />

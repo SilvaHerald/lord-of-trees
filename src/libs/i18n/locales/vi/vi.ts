@@ -49,7 +49,7 @@ export const vi = {
     title: 'Đồng hành cùng mình',
     subtitle:
       'Nhận những câu chuyện du lịch, mẹo hay và nguồn cảm hứng được gửi thẳng vào hộp thư của bạn — kèm theo những góc nhìn hậu trường độc quyền từ các chuyến đi.',
-    email: 'your.email@example.com',
+    email: 'email.cua.ban@example.com',
     button: 'Bắt đầu khám phá',
     note: '✈️ Không spam, chỉ có câu chuyện. Bạn có thể hủy bất cứ lúc nào.',
   },

@@ -8,7 +8,8 @@ import TravelShareButtons from '@components/blog/TravelShareButtons.astro';
 import RelatedDestinations from '@components/blog/RelatedDestinations.astro';
 import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 import type { BlogType } from '@interfaces/blog.interface';
-import { secureRandomInt } from '@utils/math-utils';
+import { secureRandomInt } from '@utils/math';
+import { getImageUrl } from '@utils/image';
 
 export interface Props {
   pageTitle: string;
@@ -64,7 +65,7 @@ const t = useTranslations(lang as Language);
       {
         coverImage && (
           <div class="absolute inset-0">
-            <img src={coverImage} alt={postTitle} class="h-full w-full object-cover" />
+            <img src={getImageUrl(coverImage)} alt={postTitle} class="h-full w-full object-cover" />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
             <div class="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-orange-900/20" />
           </div>
@@ -324,7 +325,7 @@ const t = useTranslations(lang as Language);
               <div class="flex items-start space-x-6">
                 <div class="flex-shrink-0">
                   <img
-                    src="/images/travel-author-avatar.jpg"
+                    src={getImageUrl('avatars/travel-author-avatar.jpg')}
                     alt="Travel Author"
                     class="h-20 w-20 rounded-full object-cover shadow-lg ring-4 ring-white dark:ring-slate-600"
                   />
