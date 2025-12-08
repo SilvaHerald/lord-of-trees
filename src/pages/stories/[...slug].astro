@@ -1,5 +1,6 @@
 ---
 import BlogPostLayout from '@layouts/BlogPostLayout.astro';
+import { defaultLang, useTranslations } from '@libs/i18n/config';
 import { type CollectionEntry, getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -16,12 +17,15 @@ type Props = CollectionEntry<'posts'>;
 const post = Astro.props;
 const { Content, headings } = await post.render();
 
+const t = useTranslations(defaultLang);
+
 // Get related posts based on shared destinations or countries
 const allPosts = await getCollection('posts');
 const relatedPosts = allPosts
   .filter(
     p =>
-      p.data.lang === 'en' && p.slug !== post.slug &&
+      p.data.lang === 'en' &&
+      p.slug !== post.slug &&
       !p.data.draft &&
       // Posts with shared destinations
       (p.data.destinations?.some(dest => post.data.destinations?.includes(dest)) ||
@@ -36,8 +40,10 @@ const relatedPosts = allPosts
 ---
 
 <BlogPostLayout
-  title={post.data.title}
-  description={post.data.description}
+  pageTitle={t('stories.pageTitle', post.data.title)}
+  pageDescription={t('stories.pageDescription', post.data.description)}
+  postTitle={post.data.title}
+  postDescription={post.data.description}
   publishDate={post.data.publishDate}
   coverImage={post.data.coverImage}
   destinations={post.data.destinations}

@@ -1,12 +1,12 @@
 ---
 import BlogPostLayout from '@layouts/BlogPostLayout.astro';
-import { languages, type Language } from '@libs/i18n/config';
+import { languages, useTranslations, type Language } from '@libs/i18n/config';
 import { getCollection, type CollectionEntry } from 'astro:content';
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('posts');
 
-  return Object.keys(languages).flatMap((lang) => {
+  return Object.keys(languages).flatMap(lang => {
     // Filter posts by language
     const langPosts = allPosts.filter(post => post.data.lang === lang);
 
@@ -16,8 +16,8 @@ export async function getStaticPaths() {
 
       return {
         params: {
-          lang,           // URL: /vi/blog/...
-          slug: cleanSlug // URL: .../bali-adventure
+          lang, // URL: /vi/blog/...
+          slug: cleanSlug, // URL: .../bali-adventure
         },
         props: post,
       };
@@ -25,18 +25,21 @@ export async function getStaticPaths() {
   });
 }
 
-type Props = CollectionEntry<'posts'>
+type Props = CollectionEntry<'posts'>;
 
 const post = Astro.props;
 const { lang } = Astro.params;
 const { Content, headings } = await post.render();
+
+const t = useTranslations(lang as Language);
 
 // Get related posts based on shared destinations or countries
 const allPosts = await getCollection('posts');
 const relatedPosts = allPosts
   .filter(
     p =>
-      p.data.lang === lang && p.slug !== post.slug &&
+      p.data.lang === lang &&
+      p.slug !== post.slug &&
       !p.data.draft &&
       // Posts with shared destinations
       (p.data.destinations?.some(dest => post.data.destinations?.includes(dest)) ||
@@ -51,8 +54,10 @@ const relatedPosts = allPosts
 ---
 
 <BlogPostLayout
-  title={post.data.title}
-  description={post.data.description}
+  pageTitle={t('stories.pageTitle', { placeholder: post.data.title })}
+  pageDescription={t('stories.pageDescription', { placeholder: post.data.description })}
+  postTitle={post.data.title}
+  postDescription={post.data.description}
   publishDate={post.data.publishDate}
   lang={lang as Language}
   coverImage={post.data.coverImage}

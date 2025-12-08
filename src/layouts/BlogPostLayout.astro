@@ -6,13 +6,15 @@ import PhotoGallery from '@components/blog/PhotoGallery.astro';
 import TravelTableOfContents from '@components/blog/TravelTableOfContents.astro';
 import TravelShareButtons from '@components/blog/TravelShareButtons.astro';
 import RelatedDestinations from '@components/blog/RelatedDestinations.astro';
-import { useTranslations, type Language } from '@libs/i18n/config';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 import type { BlogType } from '@interfaces/blog.interface';
 import { secureRandomInt } from '@utils/math-utils';
 
 export interface Props {
-  title: string;
-  description: string;
+  pageTitle: string;
+  pageDescription: string;
+  postTitle: string;
+  postDescription: string;
   publishDate: Date;
   lang?: Language;
   coverImage?: string;
@@ -30,10 +32,12 @@ export interface Props {
 }
 
 const {
-  title,
-  description,
+  pageTitle,
+  pageDescription,
+  postTitle,
+  postDescription,
   publishDate,
-  lang = 'en',
+  lang = defaultLang,
   coverImage,
   destinations,
   countries,
@@ -51,7 +55,7 @@ const {
 const t = useTranslations(lang as Language);
 ---
 
-<BaseLayout lang={lang as Language}>
+<BaseLayout title={pageTitle} description={pageDescription} lang={lang as Language}>
   <article
     class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
   >
@@ -60,7 +64,7 @@ const t = useTranslations(lang as Language);
       {
         coverImage && (
           <div class="absolute inset-0">
-            <img src={coverImage} alt={title} class="h-full w-full object-cover" />
+            <img src={coverImage} alt={postTitle} class="h-full w-full object-cover" />
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-slate-900/20 to-transparent" />
             <div class="absolute inset-0 bg-gradient-to-br from-amber-900/20 to-orange-900/20" />
           </div>
@@ -98,7 +102,7 @@ const t = useTranslations(lang as Language);
                     clip-rule="evenodd"></path>
                 </svg>
               </li>
-              <li class="font-medium text-white">{title}</li>
+              <li class="font-medium text-white">{postTitle}</li>
             </ol>
           </nav>
 
@@ -125,11 +129,11 @@ const t = useTranslations(lang as Language);
           <h1
             class="mb-6 text-4xl leading-tight font-bold text-balance text-white md:text-5xl lg:text-6xl"
           >
-            {title}
+            {postTitle}
           </h1>
 
           <p class="mb-8 max-w-3xl text-lg leading-relaxed text-balance text-white/90 md:text-xl">
-            {description}
+            {postDescription}
           </p>
 
           <TravelPostMeta
@@ -310,7 +314,7 @@ const t = useTranslations(lang as Language);
 
             <!-- Share Buttons -->
             <div class="mt-16 border-t border-slate-200 pt-8 dark:border-slate-700">
-              <TravelShareButtons lang={lang as Language} title={title} />
+              <TravelShareButtons lang={lang as Language} title={postTitle} />
             </div>
 
             <!-- Author Bio -->

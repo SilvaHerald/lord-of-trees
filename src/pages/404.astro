@@ -17,7 +17,7 @@ const homePath = currentLang === defaultLang ? '/' : `/${currentLang}`;
 const blogPath = currentLang === defaultLang ? '/stories' : `/${currentLang}/stories`;
 ---
 
-<BaseLayout lang={currentLang as Language} is404={true}>
+<BaseLayout title={t('404.pageTitle')} description={t('404.pageDescription')} lang={currentLang as Language}>
   <main
     class="flex min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 px-4 py-20 sm:px-6 lg:px-8 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
   >
