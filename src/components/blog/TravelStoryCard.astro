@@ -1,5 +1,11 @@
 ---
-import { convertDateToLanguageFormat, defaultLang, removeLanguagePrefix, useTranslations, type Language } from '@libs/i18n/config';
+import {
+  convertDateToLanguageFormat,
+  defaultLang,
+  removeLanguagePrefix,
+  useTranslations,
+  type Language,
+} from '@libs/i18n/config';
 import type { CollectionEntry } from 'astro:content';
 import { getImageUrl } from '@utils/image';
 
@@ -10,7 +16,6 @@ export interface Props {
   class?: string;
   lang?: Language;
 }
-
 
 const { post, featured = false, large = false, class: className = '', lang = 'en' } = Astro.props;
 
@@ -79,7 +84,7 @@ const travelPostUrl = `${lang === defaultLang ? '' : '/' + lang}/stories${remove
                       d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                     />
                   </svg>
-                  {destination}
+                  {destination.name}
                 </span>
               ))}
               {post.data.destinations.length > 2 && (
@@ -120,9 +125,7 @@ const travelPostUrl = `${lang === defaultLang ? '' : '/' + lang}/stories${remove
             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
           ></path>
         </svg>
-        {
-          convertDateToLanguageFormat(post.data.publishDate, lang)
-        }
+        {convertDateToLanguageFormat(post.data.publishDate, lang)}
       </time>
 
       {
@@ -143,20 +146,16 @@ const travelPostUrl = `${lang === defaultLang ? '' : '/' + lang}/stories${remove
     </div>
 
     {/* Countries visited */}
-    {
-      post.data.countries && post.data.countries.length > 0 && (
-        <div class="flex items-center text-xs font-medium text-amber-600 dark:text-amber-400">
-          <svg class="mr-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
-            />
-          </svg>
-          {post.data.countries.join(', ')}
-        </div>
-      )
-    }
+    <div class="flex items-center text-xs font-medium text-amber-600 dark:text-amber-400">
+      <svg class="mr-1 h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
+        ></path>
+      </svg>
+      {`${post.data.province}, ${post.data.country}`}
+    </div>
   </div>
 </article>

@@ -18,7 +18,11 @@ const homePath = currentLang === defaultLang ? '/' : `/${currentLang}`;
 const blogPath = currentLang === defaultLang ? '/stories' : `/${currentLang}/stories`;
 ---
 
-<BaseLayout title={t('404.pageTitle')} description={t('404.pageDescription')} lang={currentLang as Language}>
+<BaseLayout
+  title={t('404.pageTitle')}
+  description={t('404.pageDescription')}
+  lang={currentLang as Language}
+>
   <main
     class="flex min-h-screen items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 px-4 py-20 sm:px-6 lg:px-8 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
   >
@@ -212,24 +216,22 @@ const blogPath = currentLang === defaultLang ? '/stories' : `/${currentLang}/sto
                     )}
 
                     <div class="p-6">
-                      {post.data.destinations && post.data.destinations.length > 0 && (
-                        <div class="mb-2 flex items-center text-xs font-medium text-amber-600 dark:text-amber-400">
-                          <svg
-                            class="mr-1 h-3 w-3"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                            />
-                          </svg>
-                          {post.data.destinations[0]}
-                        </div>
-                      )}
+                      <div class="mb-2 flex items-center text-xs font-medium text-amber-600 dark:text-amber-400">
+                        <svg
+                          class="mr-1 h-3 w-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                        </svg>
+                        {`${post.data.province}, ${post.data.country}`}
+                      </div>
 
                       <h4 class="mb-2 line-clamp-2 font-bold text-slate-900 transition-colors group-hover:text-amber-600 dark:text-white dark:group-hover:text-amber-400">
                         {post.data.title}

@@ -26,7 +26,7 @@ const {
 
 const mapId = `map-${Math.random().toString(36).substring(2, 9)}`;
 
-let mapTitle = `${country}, ${province}`;
+let mapTitle = `${province}, ${country}`;
 
 const t = useTranslations(lang as Language);
 ---
@@ -52,7 +52,7 @@ const t = useTranslations(lang as Language);
   ></div>
 
   <p class="text-sm text-gray-600 dark:text-gray-400 mt-2 text-center">
-    <span class="font-medium">{mapTitle}</span> • {t('post.coordinates')}: {lat.toFixed(4)}, {lng.toFixed(4)}
+    <span class="font-medium">{mapTitle}</span> - {t('post.coordinates')}: [{lat.toFixed(4)}, {lng.toFixed(4)}]
   </p>
 </div>
 
