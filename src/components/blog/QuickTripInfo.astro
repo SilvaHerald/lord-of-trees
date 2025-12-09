@@ -1,0 +1,88 @@
+---
+import type { BlogType } from '@interfaces/blog.interface';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+
+export interface Props {
+  lang?: Language;
+  destinations: {
+    name: string;
+    lat?: number;
+    lng?: number;
+    description?: string;
+  }[];
+  travelDates: string;
+  duration: string;
+  budget: BlogType['budget'];
+}
+
+const { lang = defaultLang, destinations, travelDates, duration, budget } = Astro.props;
+
+const t = useTranslations(lang as Language);
+---
+
+<!-- Quick Trip Info -->
+<div
+  class="mt-8 rounded-xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-6 dark:border-slate-600 dark:from-slate-800 dark:to-slate-700"
+>
+  <h3 class="mb-4 flex items-center font-semibold text-slate-900 dark:text-white">
+    <svg
+      class="mr-2 h-5 w-5 text-amber-600 dark:text-amber-400"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    {t('post.tripDetails')}
+  </h3>
+
+  {
+    destinations && destinations.length > 0 && (
+      <div class="mb-3">
+        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">
+          {t('post.destinations')}:
+        </span>
+        <p class="text-sm text-slate-800 dark:text-slate-200">
+          {destinations.map(dest => dest.name).join(', ')}
+        </p>
+      </div>
+    )
+  }
+
+  {
+    duration && (
+      <div class="mb-3">
+        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">
+          {t('post.duration')}:
+        </span>
+        <p class="text-sm text-slate-800 dark:text-slate-200">{duration}</p>
+      </div>
+    )
+  }
+
+  {
+    travelDates && (
+      <div class="mb-3">
+        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">
+          {t('post.when')}:
+        </span>
+        <p class="text-sm text-slate-800 dark:text-slate-200">{travelDates}</p>
+      </div>
+    )
+  }
+
+  {
+    budget && (
+      <div>
+        <span class="text-sm font-medium text-slate-600 dark:text-slate-400">
+          {t('post.budget')}:
+        </span>
+        <p class="text-sm text-slate-800 dark:text-slate-200">{t(`budget.${budget}`)}</p>
+      </div>
+    )
+  }
+</div>

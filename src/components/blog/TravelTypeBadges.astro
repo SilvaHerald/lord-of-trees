@@ -1,0 +1,29 @@
+---
+import type { BlogType } from '@interfaces/blog.interface';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+
+export interface Props {
+  lang?: Language;
+  tripType: BlogType['tripType'];
+}
+
+const { lang = defaultLang, tripType } = Astro.props;
+
+const t = useTranslations(lang);
+---
+
+<div class="mb-6">
+  <span
+    class="inline-flex items-center rounded-full bg-white/20 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm"
+  >
+    <svg class="mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+      ></path>
+    </svg>
+    {t(`tripType.${tripType}`)}
+  </span>
+</div>
