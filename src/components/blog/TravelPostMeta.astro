@@ -4,11 +4,16 @@ import { convertDateToLanguageFormat, useTranslations, type Language } from '@li
 export interface Props {
   publishDate: Date;
   lang?: Language;
-  destinations?: string[];
-  countries?: string[];
-  travelDates?: string;
-  duration?: string;
-  budget?: string;
+  destinations: {
+    name: string;
+    lat?: number;
+    lng?: number;
+    description?: string;
+  }[];
+  country: string;
+  travelDates: string;
+  duration: string;
+  budget: string;
   class?: string;
 }
 
@@ -16,7 +21,7 @@ const {
   lang = 'en',
   publishDate,
   destinations,
-  countries,
+  country,
   travelDates,
   duration,
   budget,
@@ -36,24 +41,21 @@ const t = useTranslations(lang as Language);
         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
       ></path>
     </svg>
-    {t('post.published')} {convertDateToLanguageFormat(publishDate, lang)}
+    {t('post.published')}
+    {convertDateToLanguageFormat(publishDate, lang)}
   </time>
 
-  {
-    countries && countries.length > 0 && (
-      <div class="flex items-center gap-2">
-        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
-          />
-        </svg>
-        <span>{countries.join(', ')}</span>
-      </div>
-    )
-  }
+  <div class="flex items-center gap-2">
+    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"
+      ></path>
+    </svg>
+    <span>{country}</span>
+  </div>
 
   {
     duration && (

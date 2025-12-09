@@ -68,6 +68,7 @@ export const vi = {
     budget: 'Chi phí',
     gallery: 'Bộ ảnh hành trình',
     map: 'Vị trí câu chuyện diễn ra',
+    coordinates: 'Tọa độ',
     share: 'Chia sẻ hành trình này',
     readingProgress: 'Tiến độ đọc',
     relatedTitle: 'Những hành trình khác',

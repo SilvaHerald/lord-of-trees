@@ -10,33 +10,41 @@ export const postSchema = z.object({
   // i18n fields
   lang: z.enum(['en', 'vi']).default('en'),
   translationOf: z.string().optional(), // Slug of the original post
-  availableLanguages: z.array(z.enum(['en', 'vi', 'es', 'fr', 'de', 'ja', 'zh'])).default([]),
+  availableLanguages: z.array(z.enum(['en', 'vi'])).default([]),
 
   // Travel-specific fields
-  destinations: z.array(z.string()).default([]),
-  countries: z.array(z.string()).default([]),
-  travelDates: z.string().optional(), // e.g., "March 2024" or "Summer 2023"
-  duration: z.string().optional(), // e.g., "2 weeks", "10 days"
-  tripType: z
-    .enum([
-      'solo',
-      'family',
-      'adventure',
-      'backpacking',
-      'luxury',
-      'business',
-      'roadTrip',
-      'cityBreak',
-      'nature',
-      'cultural',
-      'food',
-      'photography',
-    ])
-    .optional(),
-  budget: z.enum(['budget', 'midRange', 'luxury', 'backpacker']).optional(),
+  destinations: z
+    .array(
+      z.object({
+        name: z.string(),
+        lat: z.number().optional(),
+        lng: z.number().optional(),
+        description: z.string().optional(),
+      })
+    )
+    .default([]),
+  province: z.string(),
+  country: z.string(),
+  travelDates: z.string(), // e.g., "March 2024" or "Summer 2023"
+  duration: z.string(), // e.g., "2 weeks", "10 days"
+  tripType: z.enum([
+    'solo',
+    'family',
+    'adventure',
+    'backpacking',
+    'luxury',
+    'business',
+    'roadTrip',
+    'cityBreak',
+    'nature',
+    'cultural',
+    'food',
+    'photography',
+  ]),
+  budget: z.enum(['budget', 'midRange', 'luxury', 'backpacker']),
 
   // Visual content
-  coverImage: z.string().optional(),
+  coverImage: z.string(),
   coverImageAlt: z.string().optional(),
   photos: z.array(z.string()).default([]), // Additional photos for gallery
 

@@ -68,6 +68,7 @@ export const en = {
     budget: 'Budget',
     gallery: 'Journey Gallery',
     map: 'Where This Story Happened',
+    coordinates: 'Coordinates',
     share: 'Share This Adventure',
     readingProgress: 'Reading Progress',
     relatedTitle: 'More Adventures',

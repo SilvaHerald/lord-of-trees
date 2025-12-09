@@ -64,11 +64,11 @@ export async function GET(context) {
         description: post.data.description,
         categories: [
           ...(post.data.tags || []),
-          ...(post.data.countries || []),
-          ...(post.data.destinations || []),
+          ...(post.data.country),
+          ...(post.data.destinations.map(dest => dest.name)),
           post.data.tripType,
         ].filter(Boolean),
-        link: link,
+        link,
         content: sanitizeHtml(post.body, {
           allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img']),
           allowedAttributes: {
@@ -78,7 +78,7 @@ export async function GET(context) {
         }),
         customData: `
           ${post.data.coverImage ? `<enclosure url="${new URL(post.data.coverImage, context.site).href}" type="image/jpeg" />` : ''}
-          ${post.data.countries?.map(country => `<category>${country}</category>`).join('\n') || ''}
+          ${`<category>${post.data.country}</category>`}
           ${post.data.duration ? `<duration>${post.data.duration}</duration>` : ''}
           ${post.data.tripType ? `<tripType>${post.data.tripType}</tripType>` : ''}
           ${post.data.budget ? `<budget>${post.data.budget}</budget>` : ''}

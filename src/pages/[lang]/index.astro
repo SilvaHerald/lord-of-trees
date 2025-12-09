@@ -32,8 +32,8 @@ const publishedPosts = allPosts
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
 // Get unique destinations/countries
-const allDestinations = [...new Set(publishedPosts.flatMap(post => post.data.destinations || []))];
-const allCountries = [...new Set(publishedPosts.flatMap(post => post.data.countries || []))];
+const allDestinations = [...new Set(publishedPosts.flatMap(post => post.data.destinations.map(dest => dest.name)))];
+const allCountries = [...new Set(publishedPosts.map(post => post.data.country))];
 
 // Get featured travel stories
 const featuredStories = publishedPosts.filter(post => post.data.featured).slice(0, 2);

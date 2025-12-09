@@ -10,6 +10,7 @@ import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 import type { BlogType } from '@interfaces/blog.interface';
 import { secureRandomInt } from '@utils/math';
 import { getImageUrl } from '@utils/image';
+import TravelMap from '@components/map/TravelMap.astro';
 
 export interface Props {
   pageTitle: string;
@@ -18,14 +19,20 @@ export interface Props {
   postDescription: string;
   publishDate: Date;
   lang?: Language;
-  coverImage?: string;
-  destinations?: string[];
-  countries?: string[];
-  travelDates?: string;
-  tripType?: BlogType['tripType'];
-  duration?: string;
-  budget?: BlogType['budget'];
-  photos?: string[];
+  coverImage: string;
+  destinations: {
+    name: string;
+    lat?: number;
+    lng?: number;
+    description?: string;
+  }[];
+  country: string;
+  province: string;
+  travelDates: string;
+  tripType: BlogType['tripType'];
+  duration: string;
+  budget: BlogType['budget'];
+  photos: string[];
   headings: any[];
   relatedPosts?: CollectionEntry<'posts'>[];
   mapCoordinates?: { lat: number; lng: number };
@@ -41,7 +48,8 @@ const {
   lang = defaultLang,
   coverImage,
   destinations,
-  countries,
+  country,
+  province,
   travelDates,
   tripType,
   duration,
@@ -50,7 +58,7 @@ const {
   headings,
   relatedPosts,
   mapCoordinates,
-  tips
+  tips,
 } = Astro.props;
 
 const t = useTranslations(lang as Language);
@@ -141,7 +149,7 @@ const t = useTranslations(lang as Language);
             lang={lang as Language}
             publishDate={publishDate}
             destinations={destinations}
-            countries={countries}
+            country={country}
             travelDates={travelDates}
             duration={duration}
             budget={budget}
@@ -232,7 +240,9 @@ const t = useTranslations(lang as Language);
                       <span class="text-sm font-medium text-slate-600 dark:text-slate-400">
                         {t('post.budget')}:
                       </span>
-                      <p class="text-sm text-slate-800 dark:text-slate-200">{t(`budget.${budget}`)}</p>
+                      <p class="text-sm text-slate-800 dark:text-slate-200">
+                        {t(`budget.${budget}`)}
+                      </p>
                     </div>
                   )
                 }
@@ -273,43 +283,21 @@ const t = useTranslations(lang as Language);
             }
 
             <!-- Article Body -->
-            <div class="prose-travel font-sans max-w-none">
+            <div class="prose-travel max-w-none font-sans">
               <slot />
             </div>
 
             <!-- Map Section -->
             {
               mapCoordinates && (
-                <div class="mt-12 rounded-xl bg-slate-50 p-6 dark:bg-slate-800">
-                  <h3 class="mb-4 flex items-center text-xl font-semibold text-slate-900 dark:text-white">
-                    <svg
-                      class="mr-2 h-6 w-6 text-amber-600 dark:text-amber-400"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                      />
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                      />
-                    </svg>
-                    {t('post.map')}
-                  </h3>
-                  <div class="flex h-64 items-center justify-center rounded-lg bg-slate-200 dark:bg-slate-700">
-                    <p class="text-slate-600 dark:text-slate-400">Interactive map would be here</p>
-                    <p class="ml-2 text-xs text-slate-500 dark:text-slate-500">
-                      ({mapCoordinates.lat}, {mapCoordinates.lng})
-                    </p>
-                  </div>
-                </div>
+                <TravelMap
+                  lang={lang as Language}
+                  mapCoordinates={mapCoordinates}
+                  country={country}
+                  province={province}
+                  destinations={destinations}
+                  zoom={10}
+                />
               )
             }
 

@@ -42,9 +42,11 @@ const relatedPosts = allPosts
       p.slug !== post.slug &&
       !p.data.draft &&
       // Posts with shared destinations
-      (p.data.destinations?.some(dest => post.data.destinations?.includes(dest)) ||
+      (p.data.destinations?.some(dest =>
+        post.data.destinations.map(dest => dest.name)?.includes(dest.name)
+      ) ||
         // Posts with shared countries
-        p.data.countries?.some(country => post.data.countries?.includes(country)) ||
+        p.data.country === post.data.country ||
         // Posts with same trip type
         (p.data.tripType === post.data.tripType && post.data.tripType) ||
         // Fallback to shared regular tags
@@ -62,7 +64,8 @@ const relatedPosts = allPosts
   lang={lang as Language}
   coverImage={post.data.coverImage}
   destinations={post.data.destinations}
-  countries={post.data.countries}
+  province={post.data.province}
+  country={post.data.country}
   travelDates={post.data.travelDates}
   tripType={post.data.tripType}
   duration={post.data.duration}
