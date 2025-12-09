@@ -13,11 +13,11 @@ import TravelMap from '@components/map/TravelMap.astro';
 import QuickTripInfo from '@components/blog/QuickTripInfo.astro';
 import TravelRandomTip from '@components/blog/TravelRandomTip.astro';
 import Newsletter from '@components/blog/Newsletter.astro';
-import ReadingProgressBar from '@components/blog/ReadingProgressBar.astro';
 import AuthorBio from '@components/blog/AuthorBio.astro';
 import ScrollIndicator from '@components/blog/ScrollIndicator.astro';
 import TravelTypeBadges from '@components/blog/TravelTypeBadges.astro';
 import BreadCrumb from '@components/blog/BreadCrumb.astro';
+import ProgressBar from '@components/blog/ProgressBar.astro';
 
 export interface Props {
   pageTitle: string;
@@ -199,7 +199,7 @@ const t = useTranslations(lang as Language);
           <aside class="lg:col-span-3">
             <div class="sticky top-8 space-y-8">
               <!-- Reading Progress -->
-              <ReadingProgressBar lang={lang} />
+              <ProgressBar lang={lang} />
 
               <!-- Quick Trip Info -->
               <QuickTripInfo

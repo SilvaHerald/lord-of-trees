@@ -1,0 +1,72 @@
+---
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+
+export interface Props {
+  lang?: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+
+const t = useTranslations(lang);
+---
+
+<div>
+  <h4 class="mb-4 flex items-center font-semibold text-white">
+    <svg
+      class="mr-2 h-5 w-5 text-amber-400"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      viewBox="0 0 24 24"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <path d="M16 8l-4 8-4-4 8-4z"></path>
+    </svg>
+
+    {t('footer.tripTypes')}
+  </h4>
+  <ul class="space-y-3">
+    <li>
+      <a
+        href="/blog?tag=adventure"
+        class="text-sm text-slate-300 transition-colors hover:text-amber-400"
+      >
+        🏔️ {t('tripType.adventure')}
+      </a>
+    </li>
+    <li>
+      <a
+        href="/blog?tag=solo-travel"
+        class="text-sm text-slate-300 transition-colors hover:text-amber-400"
+      >
+        🎒 {t('tripType.solo')}
+      </a>
+    </li>
+    <li>
+      <a
+        href="/blog?tag=culture"
+        class="text-sm text-slate-300 transition-colors hover:text-amber-400"
+      >
+        🏛️ {t('tripType.cultural')}
+      </a>
+    </li>
+    <li>
+      <a
+        href="/blog?tag=food"
+        class="text-sm text-slate-300 transition-colors hover:text-amber-400"
+      >
+        🍜 {t('tripType.food')}
+      </a>
+    </li>
+    <li>
+      <a
+        href="/blog?tag=nature"
+        class="text-sm text-slate-300 transition-colors hover:text-amber-400"
+      >
+        🌿 {t('tripType.nature')}
+      </a>
+    </li>
+  </ul>
+</div>

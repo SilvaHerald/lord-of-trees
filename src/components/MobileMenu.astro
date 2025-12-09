@@ -1,0 +1,51 @@
+---
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+import { mergePath } from '@utils/path';
+
+export interface Props {
+  lang?: Language;
+  baseUrl: string;
+}
+
+const { lang = defaultLang, baseUrl } = Astro.props;
+
+const t = useTranslations(lang);
+---
+
+<div
+  id="mobile-menu"
+  class="mt-4 hidden border-t border-amber-200 pt-4 pb-4 md:hidden dark:border-slate-700"
+>
+  <div class="flex flex-col space-y-4">
+    <a
+      href=`${baseUrl}`
+      class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+    >
+      🏠 {t('nav.home')}
+    </a>
+    <a
+      href=`${mergePath(baseUrl, '/stories')}`
+      class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+    >
+      📖 {t('nav.stories')}
+    </a>
+    <a
+      href=`${mergePath(baseUrl, '/destinations')}`
+      class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+    >
+      🗺️ {t('nav.destinations')}
+    </a>
+    <a
+      href=`${mergePath(baseUrl, '/about')}`
+      class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+    >
+      👋 {t('nav.about')}
+    </a>
+    <a
+      href=`${mergePath(baseUrl, '/contact')}`
+      class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+    >
+      💌 {t('nav.contact')}
+    </a>
+  </div>
+</div>

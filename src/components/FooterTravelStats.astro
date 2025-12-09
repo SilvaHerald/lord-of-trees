@@ -1,0 +1,30 @@
+---
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+
+export interface Props {
+  lang?: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+
+const t = useTranslations(lang);
+---
+
+<div class="mb-8 border-t border-slate-800 pt-8">
+  <div class="flex items-center justify-center gap-8 md:gap-16">
+    <div class="text-center">
+      <div class="mb-1 text-2xl font-bold text-amber-400 md:text-3xl">50+</div>
+      <div class="text-xs text-slate-400 md:text-sm">{t('footer.countriesExplored')}</div>
+    </div>
+    <div class="h-8 w-px bg-slate-700"></div>
+    <div class="text-center">
+      <div class="mb-1 text-2xl font-bold text-amber-400 md:text-3xl">200+</div>
+      <div class="text-xs text-slate-400 md:text-sm">{t('footer.citiesVisited')}</div>
+    </div>
+    <div class="h-8 w-px bg-slate-700"></div>
+    <div class="text-center">
+      <div class="mb-1 text-2xl font-bold text-amber-400 md:text-3xl">100+</div>
+      <div class="text-xs text-slate-400 md:text-sm">{t('footer.storiesShared')}</div>
+    </div>
+  </div>
+</div>

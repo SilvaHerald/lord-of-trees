@@ -1,0 +1,41 @@
+---
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+import { mergePath } from '@utils/path';
+
+export interface Props {
+  lang?: Language;
+  baseUrl: string;
+}
+
+const { lang = defaultLang, baseUrl } = Astro.props;
+
+const t = useTranslations(lang);
+---
+
+<div class="border-t border-slate-800 pt-8">
+  <div class="flex flex-col items-center justify-between gap-4 md:flex-row">
+    <p class="text-sm text-slate-400">
+      © 2025 Lord Of Trees. {t('footer.tagline')}
+    </p>
+    <div class="flex items-center space-x-6">
+      <a
+        href=`${mergePath(baseUrl, '/privacy')}`
+        class="text-sm text-slate-400 transition-colors hover:text-amber-400"
+      >
+        {t('footer.privacy')}
+      </a>
+      <a
+        href=`${mergePath(baseUrl, '/terms')}`
+        class="text-sm text-slate-400 transition-colors hover:text-amber-400"
+      >
+        {t('footer.terms')}
+      </a>
+      <a
+        href=`${mergePath(baseUrl, '/sitemap.xml')}`
+        class="text-sm text-slate-400 transition-colors hover:text-amber-400"
+      >
+        {t('footer.sitemap')}
+      </a>
+    </div>
+  </div>
+</div>

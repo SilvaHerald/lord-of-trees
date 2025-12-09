@@ -1,0 +1,88 @@
+---
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+import { mergePath } from '@utils/path';
+
+export interface Props {
+  lang?: Language;
+  baseUrl: string;
+}
+
+const { lang = defaultLang, baseUrl } = Astro.props;
+
+const t = useTranslations(lang);
+---
+
+<div class="hidden items-center space-x-8 md:flex">
+  <a
+    href=`${baseUrl}`
+    class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+  >
+    {t('nav.home')}
+  </a>
+  <a
+    href=`${mergePath(baseUrl, '/stories')}`
+    class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+  >
+    {t('nav.stories')}
+  </a>
+  <div class="dropdown-wrapper relative">
+    <button
+      class="flex items-center font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+    >
+      {t('nav.destinations')}
+      <svg class="ml-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
+        ></path>
+      </svg>
+    </button>
+    <!-- Dropdown menu -->
+    <div
+      class="dropdown-menu invisible absolute top-full left-0 z-50 mt-2 w-48 rounded-lg border border-slate-200 bg-white opacity-0 shadow-xl transition-all duration-200 dark:border-slate-700 dark:bg-slate-800"
+    >
+      <div class="p-2">
+        <a
+          href="/destinations/asia"
+          class="block rounded-md px-3 py-2 text-sm text-slate-700 transition-colors hover:bg-amber-50 dark:text-slate-300 dark:hover:bg-slate-700"
+        >
+          🏯 Asia
+        </a>
+        <a
+          href="/destinations/europe"
+          class="block rounded-md px-3 py-2 text-sm text-slate-700 transition-colors hover:bg-amber-50 dark:text-slate-300 dark:hover:bg-slate-700"
+        >
+          🏰 Europe
+        </a>
+        <a
+          href="/destinations/america"
+          class="block rounded-md px-3 py-2 text-sm text-slate-700 transition-colors hover:bg-amber-50 dark:text-slate-300 dark:hover:bg-slate-700"
+        >
+          🗽 Americas
+        </a>
+        <a
+          href="/destinations/africa"
+          class="block rounded-md px-3 py-2 text-sm text-slate-700 transition-colors hover:bg-amber-50 dark:text-slate-300 dark:hover:bg-slate-700"
+        >
+          🦁 Africa
+        </a>
+        <a
+          href="/destinations/oceania"
+          class="block rounded-md px-3 py-2 text-sm text-slate-700 transition-colors hover:bg-amber-50 dark:text-slate-300 dark:hover:bg-slate-700"
+        >
+          🏄 Oceania
+        </a>
+      </div>
+    </div>
+  </div>
+  <a
+    href=`${mergePath(baseUrl, '/about')}`
+    class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+  >
+    {t('nav.about')}
+  </a>
+  <a
+    href=`${mergePath(baseUrl, '/contact')}`
+    class="font-medium text-slate-700 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+  >
+    {t('nav.contact')}
+  </a>
+</div>
