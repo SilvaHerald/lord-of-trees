@@ -28,7 +28,7 @@ const mapId = `map-${Math.random().toString(36).substring(2, 9)}`;
 
 let mapTitle = `${province}, ${country}`;
 
-const t = useTranslations(lang as Language);
+const t = useTranslations(lang);
 ---
 
 <div class="mb-8">
@@ -58,7 +58,7 @@ const t = useTranslations(lang as Language);
 
 <script>
   import L from 'leaflet';
-  import 'leaflet/dist/leaflet.css';
+import 'leaflet/dist/leaflet.css';
 
   function initTravelMaps() {
     const mapElements = document.querySelectorAll('.leaflet-map');

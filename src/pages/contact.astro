@@ -1,13 +1,13 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+import { defaultLang, useTranslations } from '@libs/i18n/config';
 import { getImageUrl } from '@utils/image';
 
-const t = useTranslations(defaultLang as Language);
+const t = useTranslations(defaultLang);
 ---
 
 <BaseLayout
-  lang={defaultLang as Language}
+  lang={defaultLang}
   title={t('contact.pageTitle')}
   description={t('contact.pageDescription')}
 >

@@ -1,13 +1,13 @@
 ---
 import {
-  convertDateToLanguageFormat,
-  defaultLang,
-  removeLanguagePrefix,
-  useTranslations,
-  type Language,
+convertDateToLanguageFormat,
+defaultLang,
+removeLanguagePrefix,
+useTranslations,
+type Language,
 } from '@libs/i18n/config';
-import type { CollectionEntry } from 'astro:content';
 import { getImageUrl } from '@utils/image';
+import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
   post: CollectionEntry<'posts'>;
@@ -19,7 +19,7 @@ export interface Props {
 
 const { post, featured = false, large = false, class: className = '', lang = 'en' } = Astro.props;
 
-const t = useTranslations(lang as Language);
+const t = useTranslations(lang);
 
 // Calculate reading time (rough estimate)
 const readingTime = Math.ceil(post.body.length / 1000);

@@ -30,7 +30,7 @@ const {
   class: className = '',
 } = Astro.props;
 
-const t = useTranslations(lang as Language);
+const t = useTranslations(lang);
 ---
 
 <div class={`flex flex-wrap items-center gap-6 text-sm ${className}`}>

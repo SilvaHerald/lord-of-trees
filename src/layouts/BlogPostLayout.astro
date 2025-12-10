@@ -18,6 +18,8 @@ import ScrollIndicator from '@components/blog/ScrollIndicator.astro';
 import TravelTypeBadges from '@components/blog/TravelTypeBadges.astro';
 import BreadCrumb from '@components/blog/BreadCrumb.astro';
 import ProgressBar from '@components/blog/ProgressBar.astro';
+import type { MarkdownHeading } from 'astro';
+import CollapsibleSidebar from '../components/CollapsibleSidebar.astro';
 
 export interface Props {
   pageTitle: string;
@@ -40,7 +42,7 @@ export interface Props {
   duration: string;
   budget: BlogType['budget'];
   photos: string[];
-  headings: any[];
+  headings: MarkdownHeading[];
   relatedPosts?: CollectionEntry<'posts'>[];
   mapCoordinates?: { lat: number; lng: number };
   tips: string[];
@@ -68,10 +70,10 @@ const {
   tips,
 } = Astro.props;
 
-const t = useTranslations(lang as Language);
+const t = useTranslations(lang);
 ---
 
-<BaseLayout title={pageTitle} description={pageDescription} lang={lang as Language}>
+<BaseLayout title={pageTitle} description={pageDescription} lang={lang}>
   <article
     class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
   >
@@ -107,7 +109,7 @@ const t = useTranslations(lang as Language);
           </p>
 
           <TravelPostMeta
-            lang={lang as Language}
+            lang={lang}
             publishDate={publishDate}
             destinations={destinations}
             country={country}
@@ -130,8 +132,8 @@ const t = useTranslations(lang as Language);
         <div class="grid gap-12 lg:grid-cols-12">
           <!-- Table of Contents - Desktop -->
           <aside class="hidden lg:col-span-3 lg:block">
-            <div class="sticky top-8">
-              <TravelTableOfContents lang={lang as Language} headings={headings} />
+            <div class="sticky top-24">
+              <TravelTableOfContents lang={lang} headings={headings} />
             </div>
           </aside>
 
@@ -154,7 +156,7 @@ const t = useTranslations(lang as Language);
                 {t('post.mobileChapters')}
               </summary>
               <div class="mt-4">
-                <TravelTableOfContents lang={lang as Language} headings={headings} />
+                <TravelTableOfContents lang={lang} headings={headings} />
               </div>
             </details>
 
@@ -162,7 +164,7 @@ const t = useTranslations(lang as Language);
             {
               photos && photos.length > 0 && (
                 <div class="mb-12">
-                  <PhotoGallery lang={lang as Language} photos={photos} />
+                  <PhotoGallery lang={lang} photos={photos} />
                 </div>
               )
             }
@@ -176,7 +178,7 @@ const t = useTranslations(lang as Language);
             {
               mapCoordinates && (
                 <TravelMap
-                  lang={lang as Language}
+                  lang={lang}
                   mapCoordinates={mapCoordinates}
                   country={country}
                   province={province}
@@ -188,7 +190,7 @@ const t = useTranslations(lang as Language);
 
             <!-- Share Buttons -->
             <div class="mt-16 border-t border-slate-200 pt-8 dark:border-slate-700">
-              <TravelShareButtons lang={lang as Language} title={postTitle} />
+              <TravelShareButtons lang={lang} title={postTitle} />
             </div>
 
             <!-- Author Bio -->
@@ -197,32 +199,63 @@ const t = useTranslations(lang as Language);
 
           <!-- Sidebar -->
           <aside class="lg:col-span-3">
-            <div class="sticky top-8 space-y-8">
-              <!-- Reading Progress -->
+            <!-- Reading Progress -->
+
+            <div class="sticky top-24 space-y-8">
               <ProgressBar lang={lang} />
 
-              <!-- Quick Trip Info -->
-              <QuickTripInfo
-                lang={lang as Language}
-                destinations={destinations}
-                travelDates={travelDates}
-                duration={duration}
-                budget={budget}
-              />
+              <CollapsibleSidebar
+                title={t('post.tripDetails')}
+                icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'
+                id="trip-details"
+                theme="default"
+                defaultOpen={true}
+              >
+                <QuickTripInfo
+                  lang={lang}
+                  destinations={destinations}
+                  travelDates={travelDates}
+                  duration={duration}
+                  budget={budget}
+                />
+              </CollapsibleSidebar>
 
               <!-- Related Destinations -->
               {
                 relatedPosts && relatedPosts.length > 0 && (
-                  <RelatedDestinations lang={lang as Language} posts={relatedPosts} />
+                  <CollapsibleSidebar
+                    title={t('post.relatedTitle')}
+                    icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>'
+                    id="related-destinations"
+                    theme="blue"
+                    defaultOpen={true}
+                  >
+                    <RelatedDestinations lang={lang} posts={relatedPosts} />
+                  </CollapsibleSidebar>
                 )
               }
 
               <!-- Random Travel Tip -->
-              <TravelRandomTip lang={lang as Language} tips={tips} />
+              <CollapsibleSidebar
+                title={t('post.travelTip')}
+                icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>'
+                id="travel-tip"
+                theme="green"
+                defaultOpen={true}
+              >
+                <TravelRandomTip lang={lang} tips={tips} />
+              </CollapsibleSidebar>
 
               <!-- Newsletter CTA -->
-              <Newsletter lang={lang} />
-
+              <CollapsibleSidebar
+                title={t('post.newsletter')}
+                icon='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>'
+                id="newsletter"
+                theme="orange"
+                defaultOpen={true}
+              >
+                <Newsletter lang={lang} />
+              </CollapsibleSidebar>
             </div>
           </aside>
         </div>
@@ -259,21 +292,23 @@ const t = useTranslations(lang as Language);
   document.addEventListener('DOMContentLoaded', updateReadingProgress);
 
   // Smooth scroll for internal links
-  document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('a[href^="#"]');
+  // document.addEventListener('DOMContentLoaded', () => {
+  //   const links = document.querySelectorAll('.travel-toc a[href^="#"]');
 
-    links.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(link.getAttribute('href')!);
+  //   links.forEach(link => {
+  //     link.addEventListener('click', e => {
+  //       e.preventDefault();
 
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          });
-        }
-      });
-    });
-  });
+  //       const id = link.getAttribute('href')!.slice(1); // remove "#"
+  //       const target = document.getElementById(id);
+
+  //       if (target) {
+  //         target.scrollIntoView({
+  //           behavior: 'smooth',
+  //           block: 'start',
+  //         });
+  //       }
+  //     });
+  //   });
+  // });
 </script>

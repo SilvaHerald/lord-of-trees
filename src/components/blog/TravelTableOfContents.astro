@@ -1,12 +1,13 @@
 ---
-import { useTranslations, type Language } from '@libs/i18n/config';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+import type { MarkdownHeading } from 'astro';
 
 export interface Props {
   lang?: Language;
-  headings: any[];
+  headings: MarkdownHeading[];
 }
 
-const { lang = 'en', headings } = Astro.props;
+const { lang = defaultLang, headings } = Astro.props;
 
 // Filter headings to only show h2 and h3
 const tocHeadings = headings.filter(h => h.depth <= 3);
@@ -15,7 +16,7 @@ const t = useTranslations(lang);
 
 {
   tocHeadings.length > 0 && (
-    <nav class="travel-toc rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
+    <nav class="travel-toc max-h-[calc(100vh-8rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-800">
       <h3 class="mb-4 flex items-center font-semibold text-slate-900 dark:text-white">
         <svg
           class="mr-2 h-5 w-5 text-amber-600 dark:text-amber-400"
@@ -37,7 +38,7 @@ const t = useTranslations(lang);
           <li class={heading.depth === 3 ? 'ml-4' : ''}>
             <a
               href={`#${heading.slug}`}
-              class="block py-1 leading-tight text-slate-600 transition-colors hover:text-amber-600 dark:text-slate-300 dark:hover:text-amber-400"
+              class="dark:hover:text-amber-40 block py-1 leading-tight text-slate-600 transition-colors hover:text-amber-600 dark:text-slate-300"
             >
               {heading.text}
             </a>
@@ -48,27 +49,60 @@ const t = useTranslations(lang);
   )
 }
 
-<script>
+<script define:vars={{ tocHeadings }}>
   // Highlight current section in TOC
   document.addEventListener('DOMContentLoaded', () => {
+    const toc = document.querySelector('.travel-toc');
     const tocLinks = document.querySelectorAll('.travel-toc a');
-    const headings = document.querySelectorAll('h2, h3');
+    const headings = document.querySelectorAll('h1, h2, h3');
+
+    if (!toc || !tocLinks.length || !headings.length) return;
 
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const id = entry.target.id;
+
             tocLinks.forEach(link => {
               const isActive = link.getAttribute('href') === `#${id}`;
+
+              link.classList.toggle('text-slate-600', !isActive);
+              link.classList.toggle('dark:text-slate-300', !isActive);
               link.classList.toggle('text-amber-600', isActive);
               link.classList.toggle('dark:text-amber-400', isActive);
+
               link.classList.toggle('font-medium', isActive);
+
+              if (isActive) {
+                if (id === tocHeadings[0].slug) {
+                  toc.scrollTo({
+                    top: 0,
+                    behavior: 'smooth',
+                  });
+                }
+
+                if (id === tocHeadings[tocHeadings.length - 1].slug) {
+                  toc.scrollTo({
+                    top: toc.scrollHeight,
+                    behavior: 'smooth',
+                  });
+                }
+
+                link.scrollIntoView({
+                  block: 'nearest', // don't jump too far, just enough
+                  inline: 'nearest',
+                  behavior: 'smooth',
+                });
+              }
             });
           }
         });
       },
-      { rootMargin: '-20% 0% -35% 0%' }
+      {
+        // Active zone = roughly top 30% of the viewport
+        rootMargin: '0px 0px -85% 0px',
+      }
     );
 
     headings.forEach(heading => observer.observe(heading));

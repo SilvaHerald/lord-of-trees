@@ -1,8 +1,8 @@
 ---
+import AnimatedCounter from '@components/AnimatedCounter.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import { languages, useTranslations, type Language } from '@libs/i18n/config';
 import { getImageUrl } from '@utils/image';
-import AnimatedCounter from '@components/AnimatedCounter.astro';
 
 export async function getStaticPaths() {
   return Object.keys(languages).flatMap(lang => {

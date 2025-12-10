@@ -1,0 +1,224 @@
+---
+// CollapsibleSidebar.astro - Wrapper for collapsible sidebar sections with custom themes
+interface Props {
+  title: string;
+  icon?: string;
+  defaultOpen?: boolean;
+  id: string;
+  theme?: 'default' | 'blue' | 'green' | 'purple' | 'orange' | 'custom';
+  customClasses?: {
+    container?: string;
+    header?: string;
+    icon?: string;
+    title?: string;
+    chevron?: string;
+    content?: string;
+  };
+}
+
+const { title, icon, defaultOpen = true, id, theme = 'default', customClasses = {} } = Astro.props;
+
+const sectionId = `sidebar-section-${id}`;
+
+// Predefined theme classes
+const themes = {
+  default: {
+    container:
+      'border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 dark:border-slate-600 dark:from-slate-800 dark:to-slate-700',
+    header: 'hover:bg-amber-100/50 dark:hover:bg-slate-700/50',
+    icon: 'text-amber-600 dark:text-amber-400',
+    title: 'text-slate-900 dark:text-white',
+    chevron: 'text-slate-600 dark:text-slate-400',
+  },
+  blue: {
+    container:
+      'border-blue-200 bg-gradient-to-br from-blue-50 to-cyan-50 dark:border-blue-700 dark:from-blue-900/30 dark:to-cyan-900/30',
+    header: 'hover:bg-blue-100/50 dark:hover:bg-blue-800/30',
+    icon: 'text-blue-600 dark:text-blue-400',
+    title: 'text-slate-900 dark:text-white',
+    chevron: 'text-blue-600 dark:text-blue-400',
+  },
+  green: {
+    container:
+      'border-green-200 bg-gradient-to-br from-green-50 to-emerald-50 dark:border-green-700 dark:from-green-900/30 dark:to-emerald-900/30',
+    header: 'hover:bg-green-100/50 dark:hover:bg-green-800/30',
+    icon: 'text-green-600 dark:text-green-400',
+    title: 'text-slate-900 dark:text-white',
+    chevron: 'text-green-600 dark:text-green-400',
+  },
+  purple: {
+    container:
+      'border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50 dark:border-purple-700 dark:from-purple-900/30 dark:to-pink-900/30',
+    header: 'hover:bg-purple-100/50 dark:hover:bg-purple-800/30',
+    icon: 'text-purple-600 dark:text-purple-400',
+    title: 'text-slate-900 dark:text-white',
+    chevron: 'text-purple-600 dark:text-purple-400',
+  },
+  orange: {
+    container:
+      'border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 dark:border-orange-700 dark:from-orange-900/30 dark:to-red-900/30',
+    header: 'hover:bg-orange-100/50 dark:hover:bg-orange-800/30',
+    icon: 'text-orange-600 dark:text-orange-400',
+    title: 'text-slate-900 dark:text-white',
+    chevron: 'text-orange-600 dark:text-orange-400',
+  },
+  custom: {
+    container: '',
+    header: '',
+    icon: '',
+    title: '',
+    chevron: '',
+  },
+};
+
+// Merge theme classes with custom classes
+const currentTheme = themes[theme];
+const finalClasses = {
+  container: customClasses.container || currentTheme.container,
+  header: customClasses.header || currentTheme.header,
+  icon: customClasses.icon || currentTheme.icon,
+  title: customClasses.title || currentTheme.title,
+  chevron: customClasses.chevron || currentTheme.chevron,
+  content: customClasses.content || '',
+};
+---
+
+<div class={`collapsible-section rounded-xl border overflow-hidden ${finalClasses.container}`}>
+  <!-- Header (Always Visible) -->
+  <button
+    class={`w-full flex items-center justify-between p-4 transition-colors group ${finalClasses.header}`}
+    aria-expanded={defaultOpen}
+    aria-controls={sectionId}
+    data-section-toggle
+  >
+    <div class="flex items-center gap-2">
+      {
+        icon && (
+          <svg
+            class={`h-5 w-5 ${finalClasses.icon}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <Fragment set:html={icon} />
+          </svg>
+        )
+      }
+      <h3 class={`font-semibold text-left ${finalClasses.title}`}>
+        {title}
+      </h3>
+    </div>
+
+    <!-- Chevron Icon -->
+    <svg
+      class={`w-5 h-5 transition-transform duration-200 ${finalClasses.chevron} ${defaultOpen ? 'rotate-180' : ''}`}
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      data-chevron
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"
+      ></path>
+    </svg>
+  </button>
+
+  <!-- Content (Collapsible) -->
+  <div
+    id={sectionId}
+    class={`collapsible-content ${defaultOpen ? 'open' : ''} ${finalClasses.content}`}
+    data-section-content
+  >
+    <div class="px-4 pt-2 pb-4">
+      <slot />
+    </div>
+  </div>
+</div>
+
+<script>
+  function initCollapsibleSections() {
+    const toggleButtons = document.querySelectorAll('[data-section-toggle]');
+
+    toggleButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const content = button.nextElementSibling as HTMLElement;
+        const chevron = button.querySelector('[data-chevron]') as SVGElement;
+        const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+        // Toggle state
+        button.setAttribute('aria-expanded', (!isExpanded).toString());
+
+        // Toggle content
+        if (content) {
+          content.classList.toggle('open');
+        }
+
+        // Rotate chevron
+        if (chevron) {
+          chevron.classList.toggle('rotate-180');
+        }
+
+        // Save state to localStorage
+        const sectionId = content?.id;
+        if (sectionId) {
+          localStorage.setItem(sectionId, (!isExpanded).toString());
+        }
+      });
+    });
+
+    // Restore saved states from localStorage
+    document.querySelectorAll('[data-section-content]').forEach(content => {
+      const sectionId = content.id;
+      const savedState = localStorage.getItem(sectionId);
+
+      if (savedState !== null) {
+        const isOpen = savedState === 'true';
+        const button = content.previousElementSibling as HTMLButtonElement;
+        const chevron = button?.querySelector('[data-chevron]') as SVGElement;
+
+        button?.setAttribute('aria-expanded', isOpen.toString());
+
+        if (isOpen) {
+          content.classList.add('open');
+          chevron?.classList.add('rotate-180');
+        } else {
+          content.classList.remove('open');
+          chevron?.classList.remove('rotate-180');
+        }
+      }
+    });
+  }
+
+  // Initialize on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCollapsibleSections);
+  } else {
+    initCollapsibleSections();
+  }
+
+  // Re-initialize after Astro navigation
+  document.addEventListener('astro:page-load', initCollapsibleSections);
+</script>
+
+<style>
+  .collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition:
+      max-height 0.3s ease-out,
+      opacity 0.2s ease-out;
+    opacity: 0;
+  }
+
+  .collapsible-content.open {
+    max-height: 2000px;
+    opacity: 1;
+    transition:
+      max-height 0.4s ease-in,
+      opacity 0.3s ease-in;
+  }
+
+  /* Smooth rotation */
+  [data-chevron] {
+    transition: transform 0.2s ease;
+  }
+</style>

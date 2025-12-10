@@ -1,5 +1,5 @@
 ---
-import { defaultLang, useTranslations, type Language } from '@libs/i18n/config'
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 
 export interface Props {
   lang?: Language;
@@ -10,11 +10,11 @@ const {lang = defaultLang} = Astro.props;
 const t = useTranslations(lang);
 ---
 
-<div
+<!-- <div
   class="rounded-xl border border-amber-200 bg-gradient-to-br from-amber-100 to-orange-100 p-6 dark:border-slate-600 dark:from-slate-800 dark:to-slate-700"
->
+> -->
   <div class="text-center">
-    <div
+    <!-- <div
       class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-amber-500 to-orange-500"
     >
       <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -25,10 +25,10 @@ const t = useTranslations(lang);
           d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
         ></path>
       </svg>
-    </div>
-    <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">
+    </div> -->
+    <!-- <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">
       {t('post.newsletter')}
-    </h3>
+    </h3> -->
     <p class="mb-4 text-sm text-slate-600 dark:text-slate-300">
       {t('post.newsletterText')}
     </p>
@@ -46,4 +46,4 @@ const t = useTranslations(lang);
       </button>
     </form>
   </div>
-</div>
+<!-- </div> -->
