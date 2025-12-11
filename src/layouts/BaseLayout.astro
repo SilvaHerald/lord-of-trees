@@ -16,6 +16,7 @@ import FooterTravelStats from '@components/FooterTravelStats.astro';
 import FooterBottom from '@components/FooterBottom.astro';
 import MobileSettingsModal from '@components/MobileSettingsModal.astro';
 import MobileSettingsButton from '@components/MobileSettingsButton.astro';
+import MobileSearchModal from '@components/MobileSearchModal.astro';
 export interface Props {
   title: string;
   description: string;
@@ -145,12 +146,12 @@ if (lang !== defaultLang) {
           <!-- Settings Button -->
           <MobileSettingsButton id="mobile-settings-btn" buttonClass="lg:hidden" />
         </div>
-
-        <!-- Mobile menu -->
-        <MobileMenu lang={lang} baseUrl={baseUrl} />
       </nav>
     </header>
 
+    <!-- Mobile menu -->
+    <MobileMenu lang={lang} baseUrl={baseUrl} />
+    <MobileSearchModal />
     <!-- Settings Modal (OUTSIDE header, at root level) -->
     <MobileSettingsModal
       lang={lang}
