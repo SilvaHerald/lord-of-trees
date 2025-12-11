@@ -5,6 +5,8 @@
 
 /* Map Tailwind font tokens to our custom families */
 @theme {
+  --breakpoint-xs: 30rem;
+  --breakpoint-2xs: 23rem;
   --font-sans: 'InterCustom', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'PlayfairDisplayCustom', 'Times New Roman', serif;
 }
