@@ -52,59 +52,63 @@ const t = useTranslations(lang);
 <script define:vars={{ tocHeadings }}>
   // Highlight current section in TOC
   document.addEventListener('DOMContentLoaded', () => {
-    const toc = document.querySelector('.travel-toc');
-    const tocLinks = document.querySelectorAll('.travel-toc a');
-    const headings = document.querySelectorAll('h1, h2, h3');
+    const isMobileView = window.matchMedia('(max-width: 767px)').matches;
 
-    if (!toc || !tocLinks.length || !headings.length) return;
+    if (!isMobileView) {
+      const toc = document.querySelector('.travel-toc');
+      const tocLinks = document.querySelectorAll('.travel-toc a');
+      const headings = document.querySelectorAll('h1, h2, h3');
 
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
+      if (!toc || !tocLinks.length || !headings.length) return;
 
-            tocLinks.forEach(link => {
-              const isActive = link.getAttribute('href') === `#${id}`;
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const id = entry.target.id;
 
-              link.classList.toggle('text-slate-600', !isActive);
-              link.classList.toggle('dark:text-slate-300', !isActive);
-              link.classList.toggle('text-amber-600', isActive);
-              link.classList.toggle('dark:text-amber-400', isActive);
+              tocLinks.forEach(link => {
+                const isActive = link.getAttribute('href') === `#${id}`;
 
-              link.classList.toggle('font-medium', isActive);
+                link.classList.toggle('text-slate-600', !isActive);
+                link.classList.toggle('dark:text-slate-300', !isActive);
+                link.classList.toggle('text-amber-600', isActive);
+                link.classList.toggle('dark:text-amber-400', isActive);
 
-              if (isActive) {
-                if (id === tocHeadings[0].slug) {
-                  toc.scrollTo({
-                    top: 0,
+                link.classList.toggle('font-medium', isActive);
+
+                if (isActive) {
+                  if (id === tocHeadings[0].slug) {
+                    toc.scrollTo({
+                      top: 0,
+                      behavior: 'smooth',
+                    });
+                  }
+
+                  if (id === tocHeadings[tocHeadings.length - 1].slug) {
+                    toc.scrollTo({
+                      top: toc.scrollHeight,
+                      behavior: 'smooth',
+                    });
+                  }
+
+                  link.scrollIntoView({
+                    block: 'nearest', // don't jump too far, just enough
+                    inline: 'nearest',
                     behavior: 'smooth',
                   });
                 }
+              });
+            }
+          });
+        },
+        {
+          // Active zone = roughly top 30% of the viewport
+          rootMargin: '0px 0px -85% 0px',
+        }
+      );
 
-                if (id === tocHeadings[tocHeadings.length - 1].slug) {
-                  toc.scrollTo({
-                    top: toc.scrollHeight,
-                    behavior: 'smooth',
-                  });
-                }
-
-                link.scrollIntoView({
-                  block: 'nearest', // don't jump too far, just enough
-                  inline: 'nearest',
-                  behavior: 'smooth',
-                });
-              }
-            });
-          }
-        });
-      },
-      {
-        // Active zone = roughly top 30% of the viewport
-        rootMargin: '0px 0px -85% 0px',
-      }
-    );
-
-    headings.forEach(heading => observer.observe(heading));
+      headings.forEach(heading => observer.observe(heading));
+    }
   });
 </script>
