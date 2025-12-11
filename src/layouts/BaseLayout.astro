@@ -14,6 +14,8 @@ import FooterTravelCategories from '@components/FooterTravelCategories.astro';
 import FooterTravelResources from '@components/FooterTravelResources.astro';
 import FooterTravelStats from '@components/FooterTravelStats.astro';
 import FooterBottom from '@components/FooterBottom.astro';
+import MobileSettingsModal from '@components/MobileSettingsModal.astro';
+import MobileSettingsButton from '@components/MobileSettingsButton.astro';
 export interface Props {
   title: string;
   description: string;
@@ -118,6 +120,9 @@ if (lang !== defaultLang) {
     >
       <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between py-4">
+          <!-- Mobile menu button -->
+          <MobileMenuButton />
+
           <!-- Logo -->
           <HeaderLogo lang={lang} baseUrl={baseUrl} />
 
@@ -125,7 +130,7 @@ if (lang !== defaultLang) {
           <HeaderNav lang={lang} baseUrl={baseUrl} />
 
           <!-- Theme Toggle & Mobile Menu -->
-          <div class="flex items-center space-x-4">
+          <div class="hidden items-center space-x-4 lg:flex">
             <!-- Search Icon -->
             <HeaderSearchButton />
 
@@ -133,17 +138,27 @@ if (lang !== defaultLang) {
             <ThemeToggle />
 
             <!-- Language Switcher -->
-            <LanguageSwitcher className="self-center" />
-
-            <!-- Mobile menu button -->
-            <MobileMenuButton />
+            <LanguageSwitcher />
           </div>
+
+          <!-- Mobile Actions (Only the button, not the modal) -->
+          <!-- Settings Button -->
+          <MobileSettingsButton id="mobile-settings-btn" buttonClass="lg:hidden" />
         </div>
 
         <!-- Mobile menu -->
         <MobileMenu lang={lang} baseUrl={baseUrl} />
       </nav>
     </header>
+
+    <!-- Settings Modal (OUTSIDE header, at root level) -->
+    <MobileSettingsModal
+      lang={lang}
+      availableLanguages={[
+        { code: 'en', name: 'English', flag: '🇺🇸' },
+        { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
+      ]}
+    />
 
     <!-- Main Content -->
     <slot />

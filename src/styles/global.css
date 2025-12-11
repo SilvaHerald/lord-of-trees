@@ -307,21 +307,23 @@
     scroll-margin-top: 6rem;
   }
 
-  .prose-travel h2::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to bottom, theme(colors.amber.500), theme(colors.orange.500));
-    border-radius: 2px;
-  }
-
   @media (min-width: 768px) {
     .prose-travel h2 {
       font-size: theme(fontSize.3xl);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .prose-travel h2::before {
+      content: '';
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, theme(colors.amber.500), theme(colors.orange.500));
+      border-radius: 2px;
     }
   }
 
@@ -341,7 +343,7 @@
 
   /* Paragraphs and text */
   .prose-travel p {
-    color: black;
+    color: theme(--color-slate-700);
     line-height: theme(lineHeight.relaxed);
     margin-bottom: theme(spacing.6);
   }
@@ -419,7 +421,18 @@
   /* Lists with travel styling */
   .prose-travel :is(ul, ol) {
     color: theme(colors.slate.700);
-    margin: theme(spacing.4) 0;
+    margin: 0 0 1rem 1.5rem; /* indent + spacing */
+    padding-left: 0;
+    list-style-position: outside;
+  }
+
+  .prose-travel ul {
+    list-style-type: '-'; /* bullets */
+    margin: 0 0 1rem 1rem; /* indent + spacing */
+  }
+
+  .prose-travel ol {
+    list-style-type: decimal; /* 1., 2., 3. */
   }
 
   .prose-travel li {
@@ -428,10 +441,14 @@
     position: relative;
   }
 
-  /* Custom bullet points for travel lists */
-  .prose-travel ul li::marker {
-    content: '✈️ ';
+  .prose-travel ul li {
+    padding-left: 0.2rem;
   }
+
+  /* Custom bullet points for travel lists */
+  /* .prose-travel ul li::marker {
+    content: '- ';
+  } */
 
   /* Images with travel styling */
   .prose-travel img {

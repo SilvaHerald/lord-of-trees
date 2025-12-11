@@ -1,0 +1,373 @@
+---
+import { defaultLang, type Language } from '@libs/i18n/config';
+
+interface Props {
+  lang?: Language;
+  availableLanguages?: Array<{ code: string; name: string; flag: string }>;
+}
+
+const {
+  lang: currentLang = defaultLang,
+  availableLanguages = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  ]
+} = Astro.props;
+---
+
+<!-- Settings Popup Modal -->
+<div
+  id="mobile-settings-popup"
+  class="fixed inset-0 z-[60] hidden flex items-end justify-center p-4 sm:items-center"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="settings-title"
+>
+  <!-- Backdrop with blur -->
+  <div
+    class="fixed inset-0 bg-black/60 backdrop-blur-md transition-all duration-300"
+    id="settings-backdrop"
+    style="backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);"
+  ></div>
+
+  <!-- Modal Container -->
+  <div class="relative w-full max-w-lg animate-slide-up z-10">
+    <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl max-h-[80vh] overflow-hidden sm:rounded-3xl">
+      <!-- Header -->
+      <div class="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h2 id="settings-title" class="text-xl font-bold text-gray-900 dark:text-white">
+          Appearance settings
+        </h2>
+        <button
+          id="close-settings"
+          class="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          aria-label="Close settings"
+        >
+          <svg class="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="overflow-y-auto max-h-[calc(80vh-5rem)] px-6 py-4">
+
+        <!-- Theme Section -->
+        <div class="mb-6">
+          <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 uppercase tracking-wide">
+            Theme
+          </h3>
+
+          <!-- Light Mode Option -->
+          <label class="flex items-center justify-between py-4 cursor-pointer group">
+            <div class="flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors">
+                <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900 dark:text-white">Light mode</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Bright and clear</p>
+              </div>
+            </div>
+            <input
+              type="radio"
+              name="theme"
+              value="light"
+              class="w-5 h-5 text-orange-600 focus:ring-2 focus:ring-orange-500"
+              data-theme-option
+            />
+          </label>
+
+          <!-- Dark Mode Option -->
+          <label class="flex items-center justify-between py-4 cursor-pointer group border-t border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors">
+                <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900 dark:text-white">Dark mode</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Easy on the eyes</p>
+              </div>
+            </div>
+            <input
+              type="radio"
+              name="theme"
+              value="dark"
+              class="w-5 h-5 text-orange-600 focus:ring-2 focus:ring-orange-500"
+              data-theme-option
+            />
+          </label>
+
+          <!-- System Mode Option -->
+          <label class="flex items-center justify-between py-4 cursor-pointer group border-t border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-3">
+              <div class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 group-hover:bg-gray-200 dark:group-hover:bg-gray-700 transition-colors">
+                <svg class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <p class="font-medium text-gray-900 dark:text-white">System</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Match system preference</p>
+              </div>
+            </div>
+            <input
+              type="radio"
+              name="theme"
+              value="system"
+              class="w-5 h-5 text-orange-600 focus:ring-2 focus:ring-orange-500"
+              data-theme-option
+            />
+          </label>
+        </div>
+
+        <!-- Language Section -->
+        <div class="mb-4">
+          <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-3 uppercase tracking-wide">
+            Language
+          </h3>
+
+          {availableLanguages.map((lang, index) => (
+            <label class={`flex items-center justify-between py-4 cursor-pointer group ${index > 0 ? 'border-t border-gray-200 dark:border-gray-700' : ''}`}>
+              <div class="flex items-center gap-3">
+                <span class="text-2xl">{lang.flag}</span>
+                <p class="font-medium text-gray-900 dark:text-white">{lang.name}</p>
+              </div>
+              <input
+                type="radio"
+                name="language"
+                value={lang.code}
+                checked={lang.code === currentLang}
+                class="w-5 h-5 text-orange-600 focus:ring-2 focus:ring-orange-500"
+                data-language-option
+              />
+            </label>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initMobileSettings() {
+    const settingsBtn = document.getElementById('mobile-settings-btn');
+    const popup = document.getElementById('mobile-settings-popup');
+    const closeBtn = document.getElementById('close-settings');
+    const backdrop = document.getElementById('settings-backdrop');
+
+    if (!settingsBtn || !popup) return;
+
+    // Get current theme
+    const getCurrentTheme = () => {
+      const saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return 'system';
+    };
+
+    // Set initial theme radio
+    const themeOptions = document.querySelectorAll('[data-theme-option]');
+    const currentTheme = getCurrentTheme();
+    themeOptions.forEach(option => {
+      if ((option as HTMLInputElement).value === currentTheme) {
+        (option as HTMLInputElement).checked = true;
+      }
+    });
+
+    // Open popup
+    const openPopup = () => {
+      popup.classList.remove('hidden');
+      popup.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+
+      // Trigger animation
+      setTimeout(() => {
+        backdrop?.classList.add('backdrop-visible');
+      }, 10);
+    };
+
+    // Close popup
+    const closePopup = () => {
+      backdrop?.classList.remove('backdrop-visible');
+
+      setTimeout(() => {
+        popup.classList.add('hidden');
+        popup.classList.remove('flex');
+        document.body.style.overflow = '';
+      }, 300);
+    };
+
+    // Event listeners
+    settingsBtn.addEventListener('click', openPopup);
+    closeBtn?.addEventListener('click', closePopup);
+    backdrop?.addEventListener('click', closePopup);
+
+    // Close on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !popup.classList.contains('hidden')) {
+        closePopup();
+      }
+    });
+
+    // Theme change
+    themeOptions.forEach(option => {
+      option.addEventListener('change', (e) => {
+        const value = (e.target as HTMLInputElement).value;
+        localStorage.setItem('theme', value);
+
+        if (value === 'light') {
+          document.documentElement.classList.remove('dark');
+        } else if (value === 'dark') {
+          document.documentElement.classList.add('dark');
+        } else {
+          // System
+          const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (prefersDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        }
+      });
+    });
+
+    // Language change
+    const languageOptions = document.querySelectorAll('[data-language-option]');
+    languageOptions.forEach(option => {
+      option.addEventListener('change', (e) => {
+        const value = (e.target as HTMLInputElement).value;
+        const currentPath = window.location.pathname;
+
+        // Remove current language from path
+        const pathWithoutLang = currentPath.replace(/^\/(en|vi|es|fr)/, '');
+
+        // Redirect to new language
+        if (value === 'en') {
+          window.location.href = pathWithoutLang || '/';
+        } else {
+          window.location.href = `/${value}${pathWithoutLang}`;
+        }
+      });
+    });
+  }
+
+  // Initialize
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initMobileSettings);
+  } else {
+    initMobileSettings();
+  }
+
+  // Re-initialize after navigation
+  document.addEventListener('astro:page-load', initMobileSettings);
+</script>
+
+<style>
+  /* Modal animations */
+  @keyframes slide-up {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  /* Mobile: slide from bottom */
+  @media (max-width: 640px) {
+    .animate-slide-up {
+      animation: slide-up 0.3s ease-out;
+    }
+  }
+
+  /* Desktop: fade and scale */
+  @media (min-width: 641px) {
+    @keyframes fade-scale {
+      from {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .animate-slide-up {
+      animation: fade-scale 0.2s ease-out;
+    }
+  }
+
+  /* Backdrop blur effect */
+  #settings-backdrop {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #settings-backdrop.backdrop-visible {
+    opacity: 1;
+  }
+
+  /* Enhanced blur for better visibility */
+  @supports (backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px)) {
+    #settings-backdrop {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  }
+
+  /* Fallback for browsers without backdrop-filter */
+  @supports not ((backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px))) {
+    #settings-backdrop {
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+  }
+
+  /* Custom radio button styling */
+  input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  input[type="radio"]:checked {
+    border-color: #f97316;
+    background-color: #f97316;
+  }
+
+  input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.5rem;
+    height: 0.5rem;
+    background: white;
+    border-radius: 50%;
+  }
+
+  .dark input[type="radio"] {
+    border-color: #4b5563;
+  }
+
+  .dark input[type="radio"]:checked {
+    border-color: #f97316;
+    background-color: #f97316;
+  }
+</style>
