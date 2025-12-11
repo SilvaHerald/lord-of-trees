@@ -323,4 +323,71 @@ export const vi = {
   related: {
     exploreAll: 'Xem tất cả câu chuyện',
   },
+  mobile: {
+    nav: {
+      settingsMenu: {
+        title: 'Cài đặt giao diện',
+        theme: {
+          title: 'Chủ đề',
+          lightMode: {
+            title: 'Chế độ sáng',
+            description: 'Sáng và rõ ràng',
+          },
+          darkMode: {
+            title: 'Chế độ tối',
+            description: 'Êm dịu cho mắt',
+          },
+          system: {
+            title: 'Hệ thống',
+            description: 'Theo cài đặt của thiết bị',
+          },
+        },
+        language: {
+          title: 'Ngôn ngữ',
+        },
+      },
+      mainMenu: {
+        title: 'Menu',
+        searchInput: {
+          placeholder: 'Tìm kiếm hoặc chuyển đến...',
+        },
+      },
+      searchPopup: {
+        searchInput: {
+          placeholder: 'Tìm kiếm câu chuyện, điểm đến...',
+        },
+        searchResult: {
+          text: 'Bắt đầu nhập để tìm kiếm',
+          description: 'Tìm kiếm câu chuyện, điểm đến hoặc thẻ',
+          searching: 'Đang tìm kiếm...',
+        },
+        quickFilter: {
+          title: 'BỘ LỌC NHANH',
+          filters: {
+            destinations: 'Điểm đến',
+            tags: 'Thẻ',
+            countries: 'Quốc gia',
+          },
+        },
+        searchTips: {
+          title: 'MẸO TÌM KIẾM',
+          tip1: {
+            highlight: 'tag:',
+            text1: 'Nhập',
+            text2: 'để tìm theo thẻ',
+          },
+          tip2: {
+            highlight: 'country:',
+            text1: 'Nhập',
+            text2: 'để lọc theo quốc gia',
+          },
+          tip3: {
+            highlight: '/',
+            text1: 'Nhấn phím',
+            text2: 'để mở tìm kiếm ở bất cứ đâu',
+          },
+        },
+      },
+    },
+  },
 } as const;

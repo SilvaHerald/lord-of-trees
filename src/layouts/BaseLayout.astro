@@ -130,11 +130,10 @@ if (lang !== defaultLang) {
           <!-- Navigation -->
           <HeaderNav lang={lang} baseUrl={baseUrl} />
 
+          <!-- Search Icon -->
+          <HeaderSearchButton />
           <!-- Theme Toggle & Mobile Menu -->
           <div class="hidden items-center space-x-4 lg:flex">
-            <!-- Search Icon -->
-            <HeaderSearchButton />
-
             <!-- Theme Toggle -->
             <ThemeToggle />
 
@@ -151,7 +150,7 @@ if (lang !== defaultLang) {
 
     <!-- Mobile menu -->
     <MobileMenu lang={lang} baseUrl={baseUrl} />
-    <MobileSearchModal />
+    <MobileSearchModal lang={lang} />
     <!-- Settings Modal (OUTSIDE header, at root level) -->
     <MobileSettingsModal
       lang={lang}

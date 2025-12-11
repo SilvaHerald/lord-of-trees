@@ -309,4 +309,72 @@ export const en = {
   related: {
     exploreAll: 'Explore All Stories',
   },
+
+  mobile: {
+    nav: {
+      settingsMenu: {
+        title: 'Appearance Settings',
+        theme: {
+          title: 'theme',
+          lightMode: {
+            title: 'Light Mode',
+            description: 'Bright and clear',
+          },
+          darkMode: {
+            title: 'Dark Mode',
+            description: 'Easy on the eyes',
+          },
+          system: {
+            title: 'System',
+            description: 'Match system preference',
+          },
+        },
+        language: {
+          title: 'Language',
+        },
+      },
+      mainMenu: {
+        title: 'Menu',
+        searchInput: {
+          placeholder: 'Search or jump to...',
+        },
+      },
+      searchPopup: {
+        searchInput: {
+          placeholder: 'Search stories, destinations...',
+        },
+        searchResult: {
+          text: 'Start typing to search',
+          description: 'Search for stories, destinations, or tags',
+          searching: 'Searching...'
+        },
+        quickFilter: {
+          title: 'Quick Filters',
+          filters: {
+            destinations: 'Destinations',
+            tags: 'Tags',
+            countries: 'Countries',
+          },
+        },
+        searchTips: {
+          title: 'SEARCH TIPS',
+          tip1: {
+            highlight: 'tag:',
+            text1: 'Type',
+            text2: 'to search by tags',
+          },
+          tip2: {
+            highlight: 'country:',
+            text1: 'Type',
+            text2: 'to filter by country',
+          },
+          tip3: {
+            highlight: '/',
+            text1: 'Use',
+            text2: 'key to open search anywhere',
+          },
+        },
+      },
+    },
+  },
 } as const;
