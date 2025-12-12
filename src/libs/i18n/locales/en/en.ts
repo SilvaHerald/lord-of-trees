@@ -353,31 +353,15 @@ export const en = {
           text: 'Start typing to search',
           description: 'Search for stories, destinations, or tags',
           searching: 'Searching...',
+          noResult: 'No stories found. Try different keywords!',
         },
         quickFilter: {
           title: 'Quick Filters',
           filters: {
+            all: 'All',
             destinations: 'Destinations',
             tags: 'Tags',
             countries: 'Countries',
-          },
-        },
-        searchTips: {
-          title: 'SEARCH TIPS',
-          tip1: {
-            highlight: 'tag:',
-            text1: 'Type',
-            text2: 'to search by tags',
-          },
-          tip2: {
-            highlight: 'country:',
-            text1: 'Type',
-            text2: 'to filter by country',
-          },
-          tip3: {
-            highlight: '/',
-            text1: 'Use',
-            text2: 'key to open search anywhere',
           },
         },
       },

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import TravelSearch, { type TravelSearchPost } from './TravelSearch';
 import { defaultLang, type Language } from '@libs/i18n/config';
+import MobileSearchModal from './MobileSearchModal';
 
 type Props = {
   searchData: TravelSearchPost[];
@@ -9,12 +10,20 @@ type Props = {
 
 export default function TravelSearchController({ searchData, lang = defaultLang }: Props) {
   const [open, setOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1023px)');
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
 
   useEffect(() => {
     const openModal = () => setOpen(true);
     const closeModal = () => setOpen(false);
 
-    // 1) Keyboard: Cmd/Ctrl + K
     const onKeyDown = (e: KeyboardEvent) => {
       const isCmdK = (e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k';
       if (isCmdK) {
@@ -24,39 +33,32 @@ export default function TravelSearchController({ searchData, lang = defaultLang 
       if (e.key === 'Escape') closeModal();
     };
 
-    // 2) Click your existing search button(s)
     const onClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
-      if (!target) return;
-
-      // open if clicked element (or parent) has [data-open-search]
-      if (target.closest('[data-open-search]')) openModal();
+      if (target?.closest('[data-open-search]')) openModal();
     };
-
-    // 3) Optional: expose global functions (handy)
-    (window as any).openSearch = openModal;
-    (window as any).closeSearch = closeModal;
 
     document.addEventListener('keydown', onKeyDown);
     document.addEventListener('click', onClick);
-
     return () => {
       document.removeEventListener('keydown', onKeyDown);
       document.removeEventListener('click', onClick);
     };
   }, []);
 
-  // lock body scroll when open
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
+  if (!open) {
+    // nothing mounted
+    return <></>;
+  }
 
-  return (
-    <TravelSearch lang={lang} searchData={searchData} open={open} onClose={() => setOpen(false)} />
+  return isMobile ? (
+    <MobileSearchModal
+      open={open}
+      onClose={() => setOpen(false)}
+      searchData={searchData}
+      lang={lang}
+    />
+  ) : (
+    <TravelSearch lang={lang} open={open} onClose={() => setOpen(false)} searchData={searchData} />
   );
 }

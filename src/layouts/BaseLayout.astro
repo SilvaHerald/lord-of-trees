@@ -16,8 +16,7 @@ import FooterTravelStats from '@components/FooterTravelStats.astro';
 import FooterBottom from '@components/FooterBottom.astro';
 import MobileSettingsModal from '@components/MobileSettingsModal.astro';
 import MobileSettingsButton from '@components/MobileSettingsButton.astro';
-import MobileSearchModal from '@components/MobileSearchModal.astro';
-import TravelSearchIsland from '../components/TravelSearchIsland.astro';
+import TravelSearchIsland from '@components/TravelSearchIsland.astro';
 
 export interface Props {
   title: string;
@@ -157,7 +156,7 @@ if (lang !== defaultLang) {
 
     <!-- Mobile menu -->
     <MobileMenu lang={lang} baseUrl={baseUrl} />
-    <MobileSearchModal lang={lang} />
+    <!-- <MobileSearchModal lang={lang} /> -->
     <!-- Settings Modal (OUTSIDE header, at root level) -->
     <MobileSettingsModal
       lang={lang}

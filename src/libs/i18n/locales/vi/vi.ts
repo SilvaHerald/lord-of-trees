@@ -366,31 +366,15 @@ export const vi = {
           text: 'Bắt đầu nhập để tìm kiếm',
           description: 'Tìm kiếm câu chuyện, điểm đến hoặc thẻ',
           searching: 'Đang tìm kiếm...',
+          noResult: 'Không tìm thấy câu chuyện nào. Hãy thử từ khóa khác!',
         },
         quickFilter: {
-          title: 'BỘ LỌC NHANH',
+          title: 'Bộ lọc nhanh',
           filters: {
+            all: 'Tất cả',
             destinations: 'Điểm đến',
             tags: 'Thẻ',
             countries: 'Quốc gia',
-          },
-        },
-        searchTips: {
-          title: 'MẸO TÌM KIẾM',
-          tip1: {
-            highlight: 'tag:',
-            text1: 'Nhập',
-            text2: 'để tìm theo thẻ',
-          },
-          tip2: {
-            highlight: 'country:',
-            text1: 'Nhập',
-            text2: 'để lọc theo quốc gia',
-          },
-          tip3: {
-            highlight: '/',
-            text1: 'Nhấn phím',
-            text2: 'để mở tìm kiếm ở bất cứ đâu',
           },
         },
       },
