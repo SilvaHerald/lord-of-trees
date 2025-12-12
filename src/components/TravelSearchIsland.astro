@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import TravelSearchController from './TravelSearchController';
+import { defaultLang, type Language } from '@libs/i18n/config';
+
+export interface Props {
+  lang: Language;
+}
+
+const { lang = defaultLang } = Astro.props;
+
+const allPosts = await getCollection('posts');
+
+const searchData = allPosts
+  .filter(post => post.data.lang === lang)
+  .map(post => ({
+    id: post.slug,
+    title: post.data.title,
+    description: post.data.description,
+    tags: post.data.tags || [],
+    destinations: post.data.destinations || [],
+    country: post.data.country || '',
+    lang: post.data.lang,
+    publishDate: post.data.publishDate,
+    coverImage: post.data.coverImage,
+    tripType: post.data.tripType,
+  }));
+---
+
+<!-- You control open/close from your page or header -->
+<TravelSearchController client:load searchData={searchData} />

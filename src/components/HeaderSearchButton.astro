@@ -3,10 +3,11 @@ export interface Props {
   class?: string;
 }
 
-const { class: className = ''} = Astro.props;
+const { class: className = '' } = Astro.props;
 ---
 
 <button
+  data-open-search
   class={`hidden rounded-lg p-2 text-slate-500 transition-colors hover:bg-amber-100 dark:text-slate-400 dark:hover:bg-slate-700 ${className}`}
 >
   <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

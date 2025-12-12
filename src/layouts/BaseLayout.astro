@@ -17,6 +17,8 @@ import FooterBottom from '@components/FooterBottom.astro';
 import MobileSettingsModal from '@components/MobileSettingsModal.astro';
 import MobileSettingsButton from '@components/MobileSettingsButton.astro';
 import MobileSearchModal from '@components/MobileSearchModal.astro';
+import TravelSearchIsland from '../components/TravelSearchIsland.astro';
+
 export interface Props {
   title: string;
   description: string;
@@ -130,11 +132,8 @@ if (lang !== defaultLang) {
           <!-- Navigation -->
           <HeaderNav lang={lang} baseUrl={baseUrl} />
 
-
-
           <!-- Theme Toggle & Mobile Menu -->
           <div class="hidden items-center space-x-4 lg:flex">
-
             <!-- Search Icon -->
             <HeaderSearchButton class="md:inline" />
 
@@ -146,16 +145,15 @@ if (lang !== defaultLang) {
           </div>
 
           <div class="flex">
-          <!-- Mobile Actions (Only the button, not the modal) -->
-          <!-- Search Icon -->
-          <HeaderSearchButton class="md:max-lg:inline" />
-          <!-- Settings Button -->
-          <MobileSettingsButton id="mobile-settings-btn" buttonClass="lg:hidden" />
+            <!-- Mobile Actions (Only the button, not the modal) -->
+            <!-- Search Icon -->
+            <HeaderSearchButton class="md:max-lg:inline" />
+            <!-- Settings Button -->
+            <MobileSettingsButton id="mobile-settings-btn" buttonClass="lg:hidden" />
           </div>
         </div>
       </nav>
     </header>
-
 
     <!-- Mobile menu -->
     <MobileMenu lang={lang} baseUrl={baseUrl} />
@@ -168,7 +166,7 @@ if (lang !== defaultLang) {
         { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' },
       ]}
     />
-
+    <TravelSearchIsland lang={lang} />
     <!-- Main Content -->
     <slot />
 
