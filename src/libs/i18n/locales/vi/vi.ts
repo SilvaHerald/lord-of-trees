@@ -64,7 +64,7 @@ export const vi = {
   post: {
     published: 'Ngày đăng',
     readingTime: 'phút',
-    chapters: 'Các chương truyện',
+    chapters: 'Danh sách chương',
     mobileChapters: 'Mục lục',
     tripDetails: 'Thông tin chuyến đi',
     destinations: 'Điểm đến',
