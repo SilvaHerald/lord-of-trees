@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import Fuse from 'fuse.js';
 import type { TravelSearchPost } from './TravelSearch';
 import { useTranslations, type Language } from '@libs/i18n/config';
+import { getImageUrl } from '@utils/image';
 
 type Props = {
   open: boolean;
@@ -268,7 +269,7 @@ export default function MobileSearchModalTSX({ open, onClose, searchData, lang }
                   <div className="flex items-start gap-3">
                     {post.coverImage ? (
                       <img
-                        src={post.coverImage}
+                        src={getImageUrl(post.coverImage)!}
                         alt={post.title}
                         className="h-16 w-16 rounded-lg object-cover"
                         loading="lazy"

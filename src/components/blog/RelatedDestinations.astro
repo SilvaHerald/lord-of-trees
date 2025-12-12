@@ -6,6 +6,7 @@ import {
   type Language,
 } from '@libs/i18n/config';
 import type { CollectionEntry } from 'astro:content';
+import { getImageUrl } from '@utils/image';
 
 export interface Props {
   lang?: Language;
@@ -56,7 +57,7 @@ const buildPostUrl = (slug: string) =>
             {post.data.coverImage && (
               <div class="flex-shrink-0">
                 <img
-                  src={post.data.coverImage}
+                  src={getImageUrl(post.data.coverImage)}
                   alt={post.data.title}
                   class="h-16 w-16 rounded-lg object-cover transition-transform duration-200 group-hover:scale-105"
                 />

@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Fuse from 'fuse.js';
 import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
+import { getImageUrl } from '@utils/image';
 
 export type TravelSearchPost = {
   id: string; // slug
@@ -224,7 +225,7 @@ export default function TravelSearch({
                     <div className="flex gap-4">
                       {post.coverImage ? (
                         <img
-                          src={post.coverImage}
+                          src={getImageUrl(post.coverImage)!}
                           alt={post.title}
                           className="h-20 w-20 flex-shrink-0 rounded-lg object-cover"
                           loading="lazy"
@@ -281,9 +282,7 @@ export default function TravelSearch({
                   d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12h.01"
                 />
               </svg>
-              <p className="text-gray-600 dark:text-gray-400">
-                {t('search.noResult')}
-              </p>
+              <p className="text-gray-600 dark:text-gray-400">{t('search.noResult')}</p>
             </div>
           </div>
         )}
