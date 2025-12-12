@@ -21,6 +21,8 @@ import ProgressBar from '@components/blog/ProgressBar.astro';
 import type { MarkdownHeading } from 'astro';
 import CollapsibleSidebar from '@components/CollapsibleSidebar.astro';
 import MobileProgressBar from '@components/MobileProgressBar.astro';
+import MobileTocButton from '@components/MobileTocButton.astro';
+import MobileToc from '@components/MobileToc.astro';
 
 export interface Props {
   pageTitle: string;
@@ -263,6 +265,8 @@ const t = useTranslations(lang);
       </div>
     </div>
     <MobileProgressBar />
+    <MobileTocButton />
+    <MobileToc lang={lang} headings={headings} />
   </article>
 </BaseLayout>
 
