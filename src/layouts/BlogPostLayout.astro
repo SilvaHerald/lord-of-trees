@@ -78,7 +78,7 @@ const t = useTranslations(lang);
     class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900"
   >
     <!-- Hero Section -->
-    <header class="relative min-h-[100vh] 2xs:min-h-[80vh] overflow-hidden">
+    <header class="2xs:min-h-[80vh] relative min-h-[100vh] overflow-hidden">
       {
         coverImage && (
           <div class="absolute inset-0">
@@ -274,14 +274,16 @@ const t = useTranslations(lang);
 
     const articleHeight = article.offsetHeight;
     const articleTop = article.offsetTop;
-    const scrollPosition = window.scrollY;
-    const windowHeight = window.innerHeight;
+    const scrollY = window.scrollY;
+    const viewportHeight = window.innerHeight;
 
-    const progress = Math.min(
-      Math.max((scrollPosition - articleTop + windowHeight) / articleHeight, 0),
-      1
-    );
+    // Total scrollable distance of the article
+    const totalScrollable = articleHeight - viewportHeight;
 
+    // How much user has scrolled inside the article
+    const scrolled = scrollY - articleTop;
+
+    const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
     progressBar.style.width = `${progress * 100}%`;
   }
 
