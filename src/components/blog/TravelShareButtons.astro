@@ -1,12 +1,12 @@
 ---
-import { useTranslations, type Language } from '@libs/i18n/config';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 
 export interface Props {
   lang?: Language;
   title: string;
 }
 
-const { lang = 'en', title } = Astro.props;
+const { lang = defaultLang, title } = Astro.props;
 const currentUrl = Astro.url.toString();
 
 const t = useTranslations(lang);

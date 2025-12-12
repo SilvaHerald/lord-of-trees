@@ -204,7 +204,7 @@ const t = useTranslations(lang);
           <aside class="lg:col-span-3">
             <!-- Reading Progress -->
 
-            <div class="sticky top-24 space-y-8">
+            <div class="sticky top-24 space-y-6 max-h-[calc(100vh-7rem)] overflow-y-auto pr-2 scrollbar-thin">
               <ProgressBar lang={lang} />
 
               <CollapsibleSidebar
@@ -322,3 +322,41 @@ const t = useTranslations(lang);
   //   });
   // });
 </script>
+
+<!-- <style>
+  /* In your global.css or component style */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(203, 213, 225, 0.5); /* Light mode */
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(203, 213, 225, 0.8);
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(71, 85, 105, 0.5); /* Dark mode */
+}
+
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(71, 85, 105, 0.8);
+}
+
+/* Firefox scrollbar */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(203, 213, 225, 0.5) transparent;
+}
+
+.dark .scrollbar-thin {
+  scrollbar-color: rgba(71, 85, 105, 0.5) transparent;
+}
+</style> -->

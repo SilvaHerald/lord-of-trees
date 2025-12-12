@@ -17,7 +17,7 @@ export interface Props {
   lang?: Language;
 }
 
-const { post, featured = false, large = false, class: className = '', lang = 'en' } = Astro.props;
+const { post, featured = false, large = false, class: className = '', lang = defaultLang } = Astro.props;
 
 const t = useTranslations(lang);
 

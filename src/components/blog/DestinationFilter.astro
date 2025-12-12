@@ -1,5 +1,5 @@
 ---
-import { useTranslations, type Language } from '@libs/i18n/config';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 import DestinationSelect from './DestinationSelect';
 
 export interface Props {
@@ -8,7 +8,7 @@ export interface Props {
   lang?: Language;
 }
 
-const { destinations, countries, lang = 'en' } = Astro.props;
+const { destinations, countries, lang = defaultLang } = Astro.props;
 const t = useTranslations(lang);
 ---
 

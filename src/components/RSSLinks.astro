@@ -1,11 +1,12 @@
 ---
 import { getCollection } from 'astro:content';
+import { defaultLang } from '@libs/i18n/config';
 
 interface Props {
   lang?: string;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = defaultLang } = Astro.props;
 
 // Get all blog posts to determine available languages
 const blogPosts = await getCollection('posts');

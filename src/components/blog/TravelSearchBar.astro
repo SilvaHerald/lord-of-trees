@@ -1,11 +1,11 @@
 ---
-import { useTranslations, type Language } from '@libs/i18n/config';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 
 export interface Props {
   lang?: Language;
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = defaultLang } = Astro.props;
 
 const t = useTranslations(lang);
 
