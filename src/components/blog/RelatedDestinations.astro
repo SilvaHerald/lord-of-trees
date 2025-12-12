@@ -1,5 +1,10 @@
 ---
-import { useTranslations, type Language } from '@libs/i18n/config';
+import {
+  defaultLang,
+  removeLanguagePrefix,
+  useTranslations,
+  type Language,
+} from '@libs/i18n/config';
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
@@ -7,9 +12,12 @@ export interface Props {
   posts: CollectionEntry<'posts'>[];
 }
 
-const { lang = 'en', posts } = Astro.props;
+const { lang = defaultLang, posts } = Astro.props;
 
 const t = useTranslations(lang);
+
+const buildPostUrl = (slug: string) =>
+  `${lang === defaultLang ? '' : '/' + lang}/stories${removeLanguagePrefix(slug)}`;
 ---
 
 <!-- <div
@@ -40,7 +48,7 @@ const t = useTranslations(lang);
     posts.map(post => (
       <article class="group">
         <a
-          href={`/blog/${post.slug}`}
+          href={buildPostUrl(post.slug)}
           class="block rounded-lg border border-transparent p-4 transition-colors hover:border-amber-200 hover:bg-amber-50 dark:hover:border-slate-600 dark:hover:bg-slate-700"
         >
           <div class="flex gap-4">
@@ -77,7 +85,7 @@ const t = useTranslations(lang);
                     />
                   </svg>
                   <span class="truncate text-xs text-slate-500 dark:text-slate-400">
-                    {post.data.destinations.slice(0, 2).join(', ')}
+                    {post.data.destinations.slice(0, 2).map(dest => dest.name).join(', ')}
                     {post.data.destinations.length > 2 &&
                       ` +${post.data.destinations.length - 2} more`}
                   </span>
