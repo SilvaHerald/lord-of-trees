@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Fuse from 'fuse.js';
-import type { Language } from '@libs/i18n/config';
+import { defaultLang, useTranslations, type Language } from '@libs/i18n/config';
 
 export type TravelSearchPost = {
   id: string; // slug
@@ -28,6 +28,7 @@ type Props = {
   onClose?: () => void;
   /** Optional: limit number of shown results (default 5) */
   limit?: number;
+  lang?: Language;
 };
 
 function buildStoryUrl(post: TravelSearchPost) {
@@ -36,12 +37,20 @@ function buildStoryUrl(post: TravelSearchPost) {
   return post.lang === 'vi' ? `/vi/stories/${slug}/` : `/stories/${slug}/`;
 }
 
-export default function TravelSearch({ searchData, open, onClose, limit = 5 }: Props) {
+export default function TravelSearch({
+  searchData,
+  lang = defaultLang,
+  open,
+  onClose,
+  limit = 5,
+}: Props) {
   const [query, setQuery] = useState('');
   const [showPanel, setShowPanel] = useState(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const panelRef = useRef<HTMLDivElement | null>(null);
+
+  const t = useTranslations(lang);
 
   const fuse = useMemo(() => {
     return new Fuse(searchData, {
@@ -169,7 +178,7 @@ export default function TravelSearch({ searchData, open, onClose, limit = 5 }: P
             value={query}
             onChange={e => setQuery(e.target.value)}
             type="text"
-            placeholder="Search destinations, stories, tags..."
+            placeholder={t('search.placeholder')}
             className="w-full rounded-xl border-2 border-gray-300 bg-white py-4 pr-12 pl-12 text-lg text-gray-900 transition-all focus:border-transparent focus:ring-2 focus:ring-orange-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
             autoComplete="off"
           />
@@ -273,7 +282,7 @@ export default function TravelSearch({ searchData, open, onClose, limit = 5 }: P
                 />
               </svg>
               <p className="text-gray-600 dark:text-gray-400">
-                No stories found. Try different keywords!
+                {t('search.noResult')}
               </p>
             </div>
           </div>

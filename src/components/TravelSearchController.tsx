@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 import TravelSearch, { type TravelSearchPost } from './TravelSearch';
+import { defaultLang, type Language } from '@libs/i18n/config';
 
 type Props = {
   searchData: TravelSearchPost[];
+  lang?: Language;
 };
 
-export default function TravelSearchController({ searchData }: Props) {
+export default function TravelSearchController({ searchData, lang = defaultLang }: Props) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -54,5 +56,7 @@ export default function TravelSearchController({ searchData }: Props) {
     };
   }, [open]);
 
-  return <TravelSearch searchData={searchData} open={open} onClose={() => setOpen(false)} />;
+  return (
+    <TravelSearch lang={lang} searchData={searchData} open={open} onClose={() => setOpen(false)} />
+  );
 }

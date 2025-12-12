@@ -8,6 +8,12 @@ export const en = {
     contact: 'Contact',
   },
 
+  // search bar when click the search icon on header nav
+  search: {
+    placeholder: 'Search destinations, stories, tags...',
+    noResult: 'No stories found. Try different keywords!',
+  },
+
   // hero translation
   hero: {
     title: 'Travel Stories',
@@ -346,7 +352,7 @@ export const en = {
         searchResult: {
           text: 'Start typing to search',
           description: 'Search for stories, destinations, or tags',
-          searching: 'Searching...'
+          searching: 'Searching...',
         },
         quickFilter: {
           title: 'Quick Filters',

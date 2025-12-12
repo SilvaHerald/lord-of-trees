@@ -8,6 +8,12 @@ export const vi = {
     contact: 'Liên hệ',
   },
 
+  // search bar when click the search icon on header nav
+  search: {
+    placeholder: 'Tìm kiếm câu chuyện, điểm đến hoặc thẻ...',
+    noResult: 'Không có câu chuyện nào được tìm thấy. Hãy thử từ khóa khác!',
+  },
+
   // hero translation
   hero: {
     title: 'Những câu chuyện hành trình',
