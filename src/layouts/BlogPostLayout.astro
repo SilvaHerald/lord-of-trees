@@ -287,7 +287,7 @@ const t = useTranslations(lang);
     progressBar.style.width = `${progress * 100}%`;
   }
 
-  window.addEventListener('scroll', updateReadingProgress);
+  window.addEventListener('scroll', updateReadingProgress, {passive: true});
   window.addEventListener('resize', updateReadingProgress);
 
   // Initialize on page load
