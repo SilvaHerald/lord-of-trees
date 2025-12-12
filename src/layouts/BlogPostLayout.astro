@@ -19,7 +19,8 @@ import TravelTypeBadges from '@components/blog/TravelTypeBadges.astro';
 import BreadCrumb from '@components/blog/BreadCrumb.astro';
 import ProgressBar from '@components/blog/ProgressBar.astro';
 import type { MarkdownHeading } from 'astro';
-import CollapsibleSidebar from '../components/CollapsibleSidebar.astro';
+import CollapsibleSidebar from '@components/CollapsibleSidebar.astro';
+import MobileProgressBar from '@components/MobileProgressBar.astro';
 
 export interface Props {
   pageTitle: string;
@@ -261,6 +262,7 @@ const t = useTranslations(lang);
         </div>
       </div>
     </div>
+    <MobileProgressBar />
   </article>
 </BaseLayout>
 
@@ -269,8 +271,9 @@ const t = useTranslations(lang);
   function updateReadingProgress() {
     const article = document.querySelector('main');
     const progressBar = document.getElementById('reading-progress');
+    const mobileProgressBar = document.getElementById('reading-progress-mobile');
 
-    if (!article || !progressBar) return;
+    if (!article || !progressBar || !mobileProgressBar) return;
 
     const articleHeight = article.offsetHeight;
     const articleTop = article.offsetTop;
@@ -285,6 +288,7 @@ const t = useTranslations(lang);
 
     const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
     progressBar.style.width = `${progress * 100}%`;
+    mobileProgressBar.style.width = `${progress * 100}%`;
   }
 
   window.addEventListener('scroll', updateReadingProgress, {passive: true});
